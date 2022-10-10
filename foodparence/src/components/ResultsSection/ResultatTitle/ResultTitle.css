@@ -1,0 +1,7 @@
+.resultProduct-section-h3 {
+  color: var(--h3-color--bg-green-dark);
+  text-transform: uppercase;
+  font-size: var(--size-six);
+  font-weight: lighter;
+  margin-bottom: var(--size-three);
+}

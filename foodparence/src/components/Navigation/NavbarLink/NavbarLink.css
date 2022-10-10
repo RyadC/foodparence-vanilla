@@ -1,0 +1,17 @@
+.nav-menu-item{
+  margin-right: var(--size-five);
+}
+.nav-menu-item-link{
+  color: var(--bg-white);
+  padding: var(--size-two) var(--size-three);
+  transition: ease 0.53s;
+}
+.nav-menu-item-link:hover{
+  color: var(--text-color-important);
+  background-color: var(--bg-white);
+  border-radius: 0 calc(var(--size-four) * 1.2) 0 calc(var(--size-four) * 1.2);
+  padding: var(--size-two) var(--size-three);
+}
+.nav-menu-item:last-child{
+  margin-right: 0;
+}

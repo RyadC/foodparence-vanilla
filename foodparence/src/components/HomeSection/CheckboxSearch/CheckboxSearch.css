@@ -1,0 +1,19 @@
+.search-detailsProduct-labelCheckbox{
+  margin-top: var(--size-three);
+  font-size: calc(var(--size-four) * 1.2);
+  cursor: pointer;
+}
+.search-detailsProduct-checkbox{
+  height: calc(var(--size-four) * 1.2);
+  width: calc(var(--size-four) * 1.2);
+  border: 3px solid var(--color-form-element-title-form);
+  -moz-appearance:none;
+  -webkit-appearance:none;
+  -o-appearance:none;
+  margin-right: var(--size-three);
+  cursor: pointer;
+}
+.search-detailsProduct-checkbox:checked{
+  background-color: var(--color-form-element-title-form);
+  /* background-color: #9a6dbd; */
+}

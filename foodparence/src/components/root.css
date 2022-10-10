@@ -1,0 +1,44 @@
+:root{
+  /* COLOR */
+  --bg-white : white;
+  --bg-gray: #ececec;
+  --bg-green-light: #d1ffae;
+  --bg-green-extra-light: #E1FFCA;
+  --color-form-element-title-form: #c694ec;
+  --text-color-important: #3e8d01;
+  --text-color: #a1a1a1;
+  /* --text-color-dark: #808080; */
+  --text-color-dark: #707170;
+  --h3-color--bg-green-dark: #a9de81;
+  --title-text-color--text-menu: #f8f8f8;
+  --h2-bg-color--bg-footer: #dec0f5;
+
+
+  /* TEXT SIZE */
+  --size-title-form: 30px;
+  --size-text-form: 30px;
+  --size-h1-text-important: 50px;
+  --size-h1-text-normal: 50px;
+  --size-muslimAgency: 20px;
+  --size-text-p: 40px;
+  --size-h3-text: 60px;
+  --size-text-logo: 79px;
+  --size-text-menu: 19px;
+  --size-h2-text: 76px;
+  --size-header: 96px;
+  --size-limit: 65px;
+
+  /* GENERAL SIZE */
+  --size-one: 5px;
+  --size-two: 8px;
+  --size-three: 13px;
+  --size-four: 21px;
+  --size-five: 34px;
+  --size-six: 55px;
+  --size-seven: 89px;
+  --size-eight: 144px;
+}
+@font-face {
+  font-family: 'Comfortaa';
+  src: url('../assets/polices/Comfortaa-VariableFont_wght.ttf');
+}

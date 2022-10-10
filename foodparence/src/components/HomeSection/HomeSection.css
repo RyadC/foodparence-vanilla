@@ -1,0 +1,46 @@
+.home{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-white);
+  z-index: 4;
+}
+.home-h1{
+  margin: calc(var(--size-seven) * 0.6) 0;
+}
+.home-h1-img{
+  height: calc(var(--size-eight) * 1.9);
+}
+.home-slogan{
+  font-size: calc(var(--size-five) * 1.3);
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--text-color);
+  margin-bottom: calc(var(--size-seven) * 0.7);
+  text-align: center;
+  
+}
+.slogan-important{
+  font-weight: 500;
+  color: var(--text-color-important);
+}
+
+/** SEARCH CODE BARRE **/
+
+.search-detailsProduct{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  margin: var(--size-four) 0;
+}
+.search-detailsProduct-container{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+
+

@@ -1,0 +1,10 @@
+.nav-menu-burgerIcon{
+  position: absolute;
+  right: var(--size-one);
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  /* display: none; */
+}

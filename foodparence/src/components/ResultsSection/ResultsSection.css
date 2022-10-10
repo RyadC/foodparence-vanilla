@@ -1,0 +1,65 @@
+/*********** RESULT PRODUCT SECTION ***********/
+.resultProduct-section{
+  width: 100vw;
+  margin-top: var(--size-six);
+  background-color: var(--bg-gray);
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  /* padding-left: var(--size-seven); */
+  position: relative;
+  z-index: -2;
+  padding-bottom: var(--size-seven);
+}
+.resultProduct-section-h2{
+  margin-top: var(--size-six);
+  margin-bottom: var(--size-six);
+  /* height: var(--size-four); */
+  align-self: center;
+  width: min-content;
+}
+.resultProduct-section-h2 svg{
+  height: calc(var(--size-seven) * 1.2);
+  width: min-content;
+}
+.resultProduct-section-h2 svg g{
+  width: min-content;
+}
+.resultProduct-section-intro{
+  font-size: var(--size-five);
+  align-self: center;
+  font-weight: 700;
+  color: var(--text-color);
+  text-align: center;
+}
+.resultProduct-section-h3{
+  color: var(--h3-color--bg-green-dark);
+  text-transform: uppercase;
+  font-size: var(--size-six);
+  font-weight: lighter;
+  margin-bottom: var(--size-three);
+}
+.resultProduct-section-sousSection{
+  margin-bottom: var(--size-seven);
+  padding-left: var(--size-six);
+}
+.resultName-section-product{
+  font-size: var(--size-five);
+  color: var(--text-color);
+  font-weight: 700;
+}
+/* .resultProduct-section-list{
+  
+} */
+.resultProduct-section-list-item{
+  font-size: calc(var(--size-five) * 0.8);
+  color: var(--text-color);
+  display: list-item;
+  list-style-image: url('../../assets/images/Ellipse\ 1.svg');
+  margin-bottom: var(--size-three);
+}
+.resultProduct-section-default{
+  font-size: calc(var(--size-five) * 0.8);
+  color: var(--text-color);
+}
