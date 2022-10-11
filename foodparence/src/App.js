@@ -5,8 +5,8 @@ import Navbar from './components/Navigation/Navbar/Navbar';
 import ResultsSection from './components/ResultsSection/ResultsSection';
 
 class App extends React.Component {
-  constructor(props){
-    super(props);
+  constructor(){
+    super();
     this.state = {
       launchedSearch: false,
       allergenIsChecked: false,

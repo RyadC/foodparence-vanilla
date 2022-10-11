@@ -275,6 +275,7 @@ class HomeSection extends React.Component {
   render() {
     const { launchSearch } = this.props;
     const { jsProduct, onInputChange, handleCheckbox } = this;
+    console.log('home')
     return (
       <section className="home">
           <h1 className="home-h1">

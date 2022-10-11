@@ -1,6 +1,5 @@
 import React from "react";
 import "./ResultsSection.css";
-import "./ResultHome/ResultHome"
 import ResultHome from "./ResultHome/ResultHome";
 import ResultNameContainer from "./ResultNameContainer/ResultNameContainer";
 
@@ -16,7 +15,6 @@ const ResultsSection = (props) => {
 
   
   if(launchedSearch){
-
     displayBrand = <ResultNameContainer resultTitle={'Produit'} productName={brandProduct}/>
 
     if(allergenIsChecked){
@@ -26,9 +24,9 @@ const ResultsSection = (props) => {
   } else {
     displayBrand = <ResultHome />
   }
+  
 
   return (
-        
     <section className="resultProduct-section" id="id-resultProductSection">
 
       <h2 className="resultProduct-section-h2">
@@ -43,9 +41,6 @@ const ResultsSection = (props) => {
       {displayBrand}
       {displayAllergen}
       {displayAdditif}
-
-
-
 
 
       {/* <div class="resultAllergen-section resultProduct-section-sousSection center-BP" id="resultAllergenSection"> */}

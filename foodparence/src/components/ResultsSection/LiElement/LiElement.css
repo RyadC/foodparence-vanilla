@@ -1,0 +1,7 @@
+.resultProduct-section-list-item{
+  font-size: calc(var(--size-five) * 0.8);
+  color: var(--text-color);
+  display: list-item;
+  list-style-image: url('../../../assets/images/Ellipse\ 1.svg');
+  margin-bottom: var(--size-three);
+}
