@@ -25,19 +25,14 @@ class HomeSection extends React.Component {
       case 'allergen':
         isChecked = allergenIsChecked;
         allergenCheck();
-        // this.setState({allergenIsChecked : !isChecked})
-        // console.log(isChecked)
       break;
       case 'additive':
         isChecked = additifIsChecked;
         additifCheck();
-        // this.setState({additifIsChecked: !isChecked})
-        // console.log(isChecked)
       break;
       case 'no-halal':
         isChecked = this.state.nohalalIsChecked;
         this.setState({nohalalIsChecked: !isChecked})
-        console.log(isChecked)
       break;
     
       default:
@@ -48,7 +43,6 @@ class HomeSection extends React.Component {
         });
       break;
     };
-    console.log('ok')
   };
 
   onInputChange = (e) => {
@@ -138,7 +132,7 @@ class HomeSection extends React.Component {
     let resultAllergenAndTraceArrayFiltered = [];
     let resultAllergenAndTraceABSENT = false;
     
-    console.log(allergenArray, traceArray);
+    // console.log(allergenArray, traceArray);
 
     // Si les tableaux d'allergenes et de traces récupérés sont vides
     if(allergenArray.length < 1 && traceArray.length < 1){
@@ -155,7 +149,7 @@ class HomeSection extends React.Component {
       // Récupérer les éléments du tableau traceArray
       let traceArrayFormate = [];
       getValueSearchedFromArrayToNewArray(traceArray, traceArrayFormate, ':', 1);
-      console.log(traceArrayFormate)
+      // console.log(traceArrayFormate)
       
 
       // Concaténer les deux tableaux pour former le tableau total d'allergènes
@@ -187,7 +181,7 @@ class HomeSection extends React.Component {
         };
       };
 
-      console.log('resultAllergenAndTraceArrayFiltered : ', resultAllergenAndTraceArrayFiltered )
+      // console.log('resultAllergenAndTraceArrayFiltered : ', resultAllergenAndTraceArrayFiltered )
 
       return resultAllergenAndTraceArrayFiltered
     };  
@@ -247,6 +241,7 @@ class HomeSection extends React.Component {
       };
 
       console.log(additifArrayFormateWithNameGrouped);
+      return additifArrayFormateWithNameGrouped;
 
     };
     
@@ -254,7 +249,7 @@ class HomeSection extends React.Component {
   }
 
   jsProduct = async () => {
-    const { allergenIsChecked, additifIsChecked, onBrandProductChange, onAllergenChange } = this.props;
+    const { allergenIsChecked, additifIsChecked, onBrandProductChange, onAllergenChange, onAdditifChange } = this.props;
 
     const product = await this.getProduct();
 
@@ -266,7 +261,8 @@ class HomeSection extends React.Component {
       onAllergenChange(allergenList);
     }
     if(additifIsChecked){
-      this.getAdditifs(product)
+      const additifList = this.getAdditifs(product);
+      onAdditifChange(additifList);
     }
   }
 
@@ -275,7 +271,7 @@ class HomeSection extends React.Component {
   render() {
     const { launchSearch } = this.props;
     const { jsProduct, onInputChange, handleCheckbox } = this;
-    console.log('home')
+
     return (
       <section className="home">
           <h1 className="home-h1">

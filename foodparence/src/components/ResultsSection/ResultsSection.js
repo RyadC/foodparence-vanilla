@@ -5,7 +5,7 @@ import ResultNameContainer from "./ResultNameContainer/ResultNameContainer";
 
 
 const ResultsSection = (props) => {
-  const { launchedSearch, allergenIsChecked, additifIsChecked, brandProduct, allergenList } = props;
+  const { launchedSearch, allergenIsChecked, additifIsChecked, brandProduct, allergenList, additifList } = props;
 
   console.log('launchedSearch', launchedSearch,  'allergenIsChecked', allergenIsChecked, 'additifIsChecked', additifIsChecked)
 
@@ -13,15 +13,27 @@ const ResultsSection = (props) => {
   let displayAllergen = null;
   let displayAdditif = null;
 
-  
+  // Si je lance la recherche
   if(launchedSearch){
+    // J'affiche la 1ère sous section qui est : Produit - Nom du produit
     displayBrand = <ResultNameContainer resultTitle={'Produit'} productName={brandProduct}/>
 
+    // Lors de la recherche: si j'ai coché "Allergènes"
     if(allergenIsChecked){
+      // J'affiche la sous section "Allergènes: Liste des allergènes"
       displayAllergen = <ResultNameContainer resultTitle={'Allergènes'} list={allergenList} />
     }
 
+    // Lors de la recherche: si j'ai coché "Additifs"
+    if(additifIsChecked){
+      // J'affiche la sous section "Additifs: Liste des additifs"
+      console.log('additif is check')
+      displayAdditif = <ResultNameContainer resultTitle={'Additifs'} list={additifList} />
+    }
+
+  // Si je n'ai pas encore lancé la recherche
   } else {
+    // Alors j'affiche le message par défaut
     displayBrand = <ResultHome />
   }
   

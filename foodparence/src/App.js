@@ -19,9 +19,7 @@ class App extends React.Component {
 
 
   launchSearch = () => {
-    // const launchedSearch = this.state.launchedSearch;
     this.setState({launchedSearch: true});
-    console.log('launch')
   }
 
   allergenCheck = () => {
@@ -41,15 +39,35 @@ class App extends React.Component {
   }
 
   onAllergenChange = (allergenlist) => {
-    this.setState({ allergenList: allergenlist})
+    this.setState({ allergenList: allergenlist })
+  }
+
+  onAdditifChange = (additifList) => {
+    this.setState({ additifList: additifList })
   }
 
   render(){
     return (
       <React.Fragment>
         <Navbar />
-        <HomeSection launchSearch={this.launchSearch} allergenIsChecked={this.state.allergenIsChecked} additifIsChecked={this.state.additifIsChecked} allergenCheck={this.allergenCheck} additifCheck={this.additifCheck} onBrandProductChange={this.onBrandProductChange} onAllergenChange={this.onAllergenChange} />
-        <ResultsSection launchSearch={this.launchSearch} launchedSearch={this.state.launchedSearch} allergenIsChecked={this.state.allergenIsChecked} additifIsChecked={this.state.additifIsChecked} brandProduct={this.state.brandProduct} allergenList={this.state.allergenList} />
+        <HomeSection 
+        launchSearch={this.launchSearch}
+        allergenIsChecked={this.state.allergenIsChecked}
+        additifIsChecked={this.state.additifIsChecked}
+        allergenCheck={this.allergenCheck} 
+        additifCheck={this.additifCheck} 
+        onBrandProductChange={this.onBrandProductChange} 
+        onAllergenChange={this.onAllergenChange} 
+        />
+        <ResultsSection 
+        launchSearch={this.launchSearch} 
+        launchedSearch={this.state.launchedSearch} 
+        allergenIsChecked={this.state.allergenIsChecked} 
+        additifIsChecked={this.state.additifIsChecked} 
+        brandProduct={this.state.brandProduct} 
+        allergenList={this.state.allergenList} 
+        additifList={this.state.additifList} 
+        />
       </React.Fragment>
     )
   } 

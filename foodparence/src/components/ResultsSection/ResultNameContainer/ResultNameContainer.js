@@ -7,22 +7,20 @@ import ResultListElements from "../ResultListElements/ResultListElements";
 
 const ResultNameContainer = (props) => {
   const { resultTitle, productName, list } = props;
+  let elements = null;
+
   console.log(resultTitle, productName, list)
-  let elementsContainer = null;
 
   if(resultTitle === 'Produit'){
-    elementsContainer = <ResultNameProduct productName={productName} />
+    elements = <ResultNameProduct productName={productName} />
   } else {
-    elementsContainer = <ResultListElements list={list} />
+    elements = <ResultListElements list={list} />
   }
 
   return (
     <div className="resultName-section resultProduct-section-sousSection center-BP" id="resultNameSection">
       <ResultTitle resultTitle={resultTitle} />
-      {/* <ResultNameProduct productName={productName} /> */}
-      {elementsContainer}
-      {/* <!-- H3 class="resultProduct-section-h3": Produit --> */}
-      {/* <!-- p: Le produit class="resultName-section-product"--> */}
+      {elements} {/* product = brand || list of allergens or additifs */}
     </div>
   )
 }
