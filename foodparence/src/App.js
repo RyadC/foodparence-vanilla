@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import Fonctionnement from './components/Fonctionnement/Fonctionnement';
 import Footer from './components/Footer/Footer';
 import HomeSection from './components/HomeSection/HomeSection';
 import Navbar from './components/Navigation/Navbar/Navbar';
@@ -14,7 +15,7 @@ class App extends React.Component {
       brandProduct: '',
       allergenList: '',
       additifList: '',
-      route: 'home',
+      route: 'Home',
     }
   }
 
@@ -22,9 +23,9 @@ class App extends React.Component {
     this.setState({route: route})
   }
 
-  onFonctionnementLinkClick = () => {
+  // onFonctionnementLinkClick = () => {
 
-  }
+  // }
 
   launchSearch = () => {
     this.setState({launchedSearch: true});
@@ -59,17 +60,38 @@ class App extends React.Component {
     let display = null;
 
     switch (route) {
-      case 'home':
-        display = null; 
-        break;
+      case 'Home':
+        display =        
+        <React.Fragment>
+          <HomeSection 
+          launchSearch={this.launchSearch}
+          allergenIsChecked={this.state.allergenIsChecked}
+          additifIsChecked={this.state.additifIsChecked}
+          allergenCheck={this.allergenCheck} 
+          additifCheck={this.additifCheck} 
+          onBrandProductChange={this.onBrandProductChange} 
+          onAllergenChange={this.onAllergenChange}
+          onAdditifChange={this.onAdditifChange} 
+          />
+          <ResultsSection 
+          launchSearch={this.launchSearch} 
+          launchedSearch={this.state.launchedSearch} 
+          allergenIsChecked={this.state.allergenIsChecked} 
+          additifIsChecked={this.state.additifIsChecked} 
+          brandProduct={this.state.brandProduct} 
+          allergenList={this.state.allergenList} 
+          additifList={this.state.additifList} 
+          />
+        </React.Fragment>
+      break;
     
-      default:
-        break;
-    }
+      case 'Fonctionnement':
+        display = 
+        <Fonctionnement />
+      break;
 
-    return (
-      <React.Fragment>
-        <Navbar />
+      default:
+        <React.Fragment>
         <HomeSection 
         launchSearch={this.launchSearch}
         allergenIsChecked={this.state.allergenIsChecked}
@@ -89,7 +111,15 @@ class App extends React.Component {
         allergenList={this.state.allergenList} 
         additifList={this.state.additifList} 
         />
-      <Footer />
+      </React.Fragment>
+      break;
+    }
+
+    return (
+      <React.Fragment>
+        <Navbar onRouteChange={this.onRouteChange}/>
+        {display}
+        <Footer />
       </React.Fragment>
     )
   } 

@@ -1,0 +1,47 @@
+/**************** FONCTIONNEMENT *********************/
+.section-fonctionnement{
+  background-color: var(--bg-gray);
+  height: 100%;
+  width: 100%;
+  padding: var(--size-six) var(--size-limit);
+}
+
+.fonctionnement-h2{
+  text-transform: uppercase;
+  color: var(--text-color-important);
+  margin-bottom: var(--size-five);
+  font-size: calc(var(--size-five) * 0.9);
+}
+
+.comment{
+  padding-bottom: var(--size-seven);
+}
+/* .comment-h2{
+
+} */
+.comment-textBlock{
+  font-size: calc(var(--size-four) * 0.9);
+  line-height: calc(var(--size-four) * 1.4);
+  color: var(--text-color-dark);
+  font-weight: 500;
+}
+.text-important{
+  color: var(--text-color-important);
+  font-weight: 500;
+}
+.loupe-icon{
+  height: var(--size-five);
+  fill: var(--color-form-element-title-form);
+  position: relative;
+  top: 10px;
+}
+
+/* .resultats{
+
+} */
+/* .resultats-h2{
+
+} */
+
+
+

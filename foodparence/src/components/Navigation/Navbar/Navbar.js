@@ -6,6 +6,8 @@ import NavbarLink from "../NavbarLink/NavbarLink";
 
 
 const Navbar = (props) => {
+  const { onRouteChange } = props;
+
   return (
     <React.Fragment>
       <header className="header">
@@ -17,16 +19,11 @@ const Navbar = (props) => {
         <nav className="nav">
           <ul className="nav-menu">
             <NavbarLink nameLink={'Ressources'} />
-            <NavbarLink nameLink={'Fonctionnement'} />
+            <NavbarLink nameLink={'Fonctionnement'} onRouteChange={onRouteChange} />
             <NavbarLink nameLink={'Contact'} />
           </ul>
-
-
         </nav>
       </header>
-
-
-
     </React.Fragment>
   )
 }

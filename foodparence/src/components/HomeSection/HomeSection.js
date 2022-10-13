@@ -278,12 +278,12 @@ class HomeSection extends React.Component {
 
   render() {
     const { launchSearch } = this.props;
-    const { jsProduct, onInputChange, handleCheckbox } = this;
+    const { jsProduct, onInputChange, handleCheckbox, onRouteChange } = this;
 
     return (
       <section className="home">
           <h1 className="home-h1">
-            <a className="home-h1-link" href="index.html">
+            <a className="home-h1-link" href="#0" >
               <img className="home-h1-img" src={logo} alt="Le Logo de Food'Parence" />
             </a>
           </h1>
