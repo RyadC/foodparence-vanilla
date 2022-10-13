@@ -1,0 +1,36 @@
+/************* FOOTER ***************/
+.footer{
+  background-color: var(--h2-bg-color--bg-footer);
+  height: calc(var(--size-seven) * 0.8);
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  color: var(--text-color-dark);
+}
+.marque{
+  font-size: calc(var(--size-four) * 1.4);
+  margin-left: var(--size-six);
+  position: relative;
+  padding-top: var(--size-two);
+}
+.marque-copyright{
+  font-size: var(--size-three);
+  position: absolute;
+}
+.agence{
+  /* width: min-content; */
+  display: inline;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  font-size: var(--size-three);
+  padding-bottom: var(--size-one);
+}

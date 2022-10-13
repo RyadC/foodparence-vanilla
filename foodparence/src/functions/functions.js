@@ -27,6 +27,17 @@
   };
 };
 
+function scrollToResultSection(){
+  const el_ResultProductSectionH2 = document.querySelector('.resultProduct-section-h2');
+
+  const verticalResultProductSectionH2Position = el_ResultProductSectionH2.getBoundingClientRect().y;
+
+  // Récupérer l'emplacement Y de la page actuelle (dans le cas où la page à été scrollée)
+
+  // Scroller vars le titre en soustrayant la hauteur de scroll actuelle en enlevant qque pixel pour écarter le titre du haut du window (question d'ergonomie)
+    window.scrollBy(0, (verticalResultProductSectionH2Position - 20))
+}
+
 
 
 
@@ -34,5 +45,6 @@ const functions = {
   formatTheWord,
   formatToUppercase,
   getValueSearchedFromArrayToNewArray,
+  scrollToResultSection,
 }
 export default functions;

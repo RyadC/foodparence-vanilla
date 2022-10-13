@@ -143,7 +143,6 @@ class HomeSection extends React.Component {
       // Récupérer les éléments du tableau allergenArray
       let allergenArrayFormate = [];
       getValueSearchedFromArrayToNewArray(allergenArray, allergenArrayFormate, ':', 1);
-      console.log(allergenArrayFormate)
 
 
       // Récupérer les éléments du tableau traceArray
@@ -189,6 +188,8 @@ class HomeSection extends React.Component {
 
   getAdditifs = (product) => {
     const { getValueSearchedFromArrayToNewArray } = functions;
+
+    console.log('product in additif', product)
     
     let additifArray = product.additives_original_tags;
     let resultAdditifABSENT = false;
@@ -250,20 +251,27 @@ class HomeSection extends React.Component {
 
   jsProduct = async () => {
     const { allergenIsChecked, additifIsChecked, onBrandProductChange, onAllergenChange, onAdditifChange } = this.props;
+    const { scrollToResultSection } = functions;
 
     const product = await this.getProduct();
-
+    
     const brandProduct = this.getBrandAndNameProduct(product);
     onBrandProductChange(brandProduct);
-
+    
     if(allergenIsChecked){
       const allergenList = this.getAllergens(product);
+      console.log('allergenList', allergenList)
       onAllergenChange(allergenList);
     }
+
     if(additifIsChecked){
       const additifList = this.getAdditifs(product);
+      console.log('additifList', additifList)
       onAdditifChange(additifList);
     }
+
+    scrollToResultSection();
+
   }
 
   
