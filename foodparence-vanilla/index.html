@@ -1,13 +1,318 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <link rel="stylesheet" href="style.css" />
+    <title>FoodParence | Pour des produits plus transparents</title>
   </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/main.js"></script>
+  <body class="">
+    <!-- Assombrir lors de l'ouverture du menu burger-->
+    <div class="overlay"></div>
+
+    <div class="container">
+      <header class="header">
+        <div class="header__logo">
+          <a class="header__link" href="index.html">
+            <img
+              class="header__img"
+              src="./src/assets/images/Groupe 4.png"
+              alt="Logo de foodParence en minitaure - variante 2"
+            />
+          </a>
+        </div>
+        <nav class="nav">
+          <ul class="nav-menu">
+            <li class="nav__item">
+              <a class="nav__link" href="#">Ressources</a>
+            </li>
+            <li class="nav__item">
+              <a class="nav__link" href="pages/fonctionnement.html"
+                >Fonctionnement</a
+              >
+            </li>
+            <li class="nav__item">
+              <a class="nav__link" href="#">Contact</a>
+            </li>
+          </ul>
+
+          <ul class="nav-menu-burgerIcon">
+            <svg
+              class="burger-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="21"
+              viewBox="0 0 30 21"
+            >
+              <g
+                id="Icon_feather-menu"
+                data-name="Icon feather-menu"
+                transform="translate(-3 -7.5)"
+              >
+                <path
+                  id="Tracé_7"
+                  data-name="Tracé 7"
+                  d="M4.5,18h27"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="3"
+                />
+                <path
+                  id="Tracé_8"
+                  data-name="Tracé 8"
+                  d="M4.5,9h27"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="3"
+                />
+                <path
+                  id="Tracé_9"
+                  data-name="Tracé 9"
+                  d="M4.5,27h27"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="3"
+                />
+              </g>
+            </svg>
+          </ul>
+        </nav>
+      </header>
+
+      <!-- Apparition du menu en responsive -->
+      <div class="div-menu-burger disabled">
+        <svg
+          class="arrow-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="31.504"
+          height="30.705"
+          viewBox="0 0 31.504 30.705"
+        >
+          <path
+            id="Icon_awesome-arrow-right"
+            data-name="Icon awesome-arrow-right"
+            d="M13.395,4.7l1.561-1.561a1.681,1.681,0,0,1,2.384,0L31.008,16.8a1.681,1.681,0,0,1,0,2.384L17.339,32.857a1.681,1.681,0,0,1-2.384,0L13.395,31.3a1.689,1.689,0,0,1,.028-2.412L21.9,20.813H1.688A1.683,1.683,0,0,1,0,19.125v-2.25a1.683,1.683,0,0,1,1.688-1.687H21.9L13.423,7.116A1.677,1.677,0,0,1,13.395,4.7Z"
+            transform="translate(0 -2.647)"
+          />
+        </svg>
+
+        <ul class="nav__burger">
+          <li class="burger__item">
+            <a class="burger__link" href="#">Ressources</a>
+          </li>
+          <li class="burger__item">
+            <a class="burger__link" href="pages/fonctionnement.html"
+              >Fonctionnement</a
+            >
+          </li>
+          <li class="burger__item">
+            <a class="burger__link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+
+      <section class="home">
+        <h1 class="home__title">
+          <a class="home__link" href="index.html">
+            <img
+              class="home__img"
+              src="./src/assets/images/Groupe 1.png"
+              alt="Le Logo de Food'Parence"
+            />
+          </a>
+        </h1>
+
+        <p class="home__trailer">
+          Exigez plus de
+          <strong class="important">transparence</strong> pour vos
+          <strong class="important">produits</strong>
+        </p>
+
+        <form id="form">
+          <div class="search-barcode">
+            <!-- <p class="search-codeBarre__consigne">
+              Veuillez entrer le code-barre du produit recherché:
+            </p> -->
+
+            <label class="search-barcode__label" for="barcode">
+              Code-barre
+              <input
+                class="search-barcode__input"
+                type="text"
+                name="search"
+                id="barcode"
+                autocomplete="off"
+                autofocus
+              />
+            </label>
+            <button
+              href="#id-resultSection"
+              class="form-submit"
+              type="submit"
+              value="Rechercher"
+              id="submit"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="39.777"
+                height="39.787"
+                viewBox="0 0 39.777 39.787"
+              >
+                <path
+                  id="Icon_ionic-ios-search"
+                  data-name="Icon ionic-ios-search"
+                  d="M43.811,41.4,32.748,30.234a15.766,15.766,0,1,0-2.393,2.424l10.99,11.094a1.7,1.7,0,0,0,2.4.062A1.714,1.714,0,0,0,43.811,41.4ZM20.359,32.793a12.449,12.449,0,1,1,8.8-3.646A12.372,12.372,0,0,1,20.359,32.793Z"
+                  transform="translate(-4.5 -4.493)"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div class="search-detailsProduct">
+            <div class="search-detailsProduct__container">
+              <label
+                class="search-detailsProduct__label"
+                for="allergen-checkbox"
+              >
+                <input
+                  class="search-detailsProduct__allergen search-detailsProduct-checkbox"
+                  type="checkbox"
+                  name="allergen-checkbox"
+                  id="allergen-checkbox"
+                />
+                Allergènes
+              </label>
+
+              <label
+                class="search-detailsProduct__label"
+                for="additive-checkbox"
+              >
+                <input
+                  class="search-detailsProduct__additive search-detailsProduct-checkbox"
+                  type="checkbox"
+                  name="additive-checkbox"
+                  id="additive-checkbox"
+                />
+                Additifs
+              </label>
+
+              <label
+                class="search-detailsProduct__label"
+                for="no-animal-checkbox"
+              >
+                <input
+                  class="search-detailsProduct__no-animal search-detailsProduct-checkbox"
+                  type="checkbox"
+                  name="no-animal-checkbox"
+                  id="no-animal-checkbox"
+                />
+                Pas de présence animal
+              </label>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section class="result-section" id="id-resultSection">
+        <h2 class="result-section-h2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="705"
+            height="149"
+            viewBox="0 0 705 149"
+          >
+            <g
+              id="Groupe_9"
+              data-name="Groupe 9"
+              transform="translate(-690.067 -1176.656)"
+            >
+              <path
+                id="Rectangle_11"
+                data-name="Rectangle 11"
+                d="M11,0H575A130,130,0,0,1,705,130v8a11,11,0,0,1-11,11H130A130,130,0,0,1,0,19V11A11,11,0,0,1,11,0Z"
+                transform="translate(690.067 1176.656)"
+                fill="#dec0f5"
+              />
+              <text
+                id="Résultat"
+                transform="translate(855.067 1280.656)"
+                fill="#f8f8f8"
+                font-size="76"
+                font-family="Comfortaa"
+                font-weight="300"
+                letter-spacing="-0.03em"
+              >
+                <tspan x="10" y="0">RÉSULTAT</tspan>
+              </text>
+            </g>
+          </svg>
+        </h2>
+
+        <p class="result-section__intro">
+          Effectuez votre recherche et vos résultats s'afficheront ici..
+        </p>
+
+        <div
+          class="result-name result-section__subsection center-BP"
+          id="resultNameSection"
+        >
+          <!-- H3 class="result-section-h3": Produit -->
+          <!-- p: Le produit class="resultName-section-product"-->
+        </div>
+
+        <div
+          class="result-allergen result-section__subsection center-BP"
+          id="resultAllergenSection"
+        >
+          <!-- H3 class="result-section-h3": Allergènes -->
+          <!-- ul class="result-section-list"
+          li class="result-section-list-item"
+          li
+          -->
+        </div>
+
+        <div
+          class="result-additive result-section__subsection center-BP"
+          id="resultAdditiveSection"
+        >
+          <!-- H3 class="result-section-h3": Additifs -->
+          <!-- ul
+          li
+          li
+          -->
+        </div>
+      </section>
+
+      <section class="result-information">
+        <h3 class="result-information__title">
+          <!-- : Informations complémentaires -->
+        </h3>
+        <div class="result-classification">
+          <!-- span.nutriscore  -->
+          <!-- span.nova  -->
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="brand">
+          <span class="brand__text">FoodParence</span>
+          <span class="brand__copyright">&copy;</span>
+        </div>
+
+        <div class="agency">
+          <div class="agency-box">
+            <span class="agency-text">Neiyad Agency</span>
+            <span class="agency-copyright">&copy;</span>
+          </div>
+        </div>
+      </footer>
+    </div>
   </body>
 </html>
