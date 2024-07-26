@@ -41,7 +41,7 @@ const el_AdditiveInput = document.querySelector("#additive-checkbox");
 const el_NoAnimalInput = document.querySelector("#no-halal-checkbox");
 
 /***** RESULT PRODUCT SECTION *****/
-const el_ResultProductSection = document.querySelector("#resultProductSection");
+const el_ResultProductSection = document.querySelector("#resultSection");
 
 /** H2 **/
 const el_ResultTitle = document.querySelector(".result-section__title");
@@ -169,12 +169,12 @@ el_Form.addEventListener("submit", function (e) {
           }
 
           /***** Récupérer le nom de la marque: le formater ou texte par defaut sinon *****/
-          let resultProduct = null;
+          let result = null;
           if (brands) {
             brands = toUppercaseWord(brands);
-            resultProduct = `${brands} - ${nameProduct}`;
+            result = `${brands} - ${nameProduct}`;
           } else {
-            resultProduct = `Marque inconnue - ${nameProduct}`;
+            result = `Marque inconnue - ${nameProduct}`;
           }
 
           /***** Récupérer les allergenes *****/
@@ -365,7 +365,7 @@ el_Form.addEventListener("submit", function (e) {
           const injectedProduct = injectElement(
             "p",
             el_ResultNameSection,
-            resultProduct
+            result
           );
           injectedProduct.classList.add("resultName-section__product");
           console.log(injectedProduct);
@@ -387,7 +387,7 @@ el_Form.addEventListener("submit", function (e) {
                 el_ResultAllergenSection,
                 "Aucun allergène semble être présent"
               );
-              injectedPAllergen.classList.add("resultProduct-section-default");
+              injectedPAllergen.classList.add("result-section-default");
             } else {
               // La liste <ul>
               const injectedUlAllergen = injectElement(
@@ -434,7 +434,7 @@ el_Form.addEventListener("submit", function (e) {
                 el_ResultAdditiveSection,
                 "Aucun additif semble être présent"
               );
-              injectedPAdditive.classList.add("resultProduct-section-default");
+              injectedPAdditive.classList.add("result-section-default");
             } else {
               // La liste <ul>
               const injectedUlAdditive = injectElement(
@@ -469,7 +469,7 @@ el_Form.addEventListener("submit", function (e) {
 
           /*** Injecter les informations complémentaires (Nutriscore et Nova) ***/
           /* Injecter le svg au sein de la balise h3'*/
-          el_ResultProductInformationH3.innerHTML = `<svg class="resultProduct-information-H3-svg" xmlns="http://www.w3.org/2000/svg" width="498" height="94" viewBox="0 0 498 94">
+          el_ResultProductInformationH3.innerHTML = `<svg class="result-information-H3-svg" xmlns="http://www.w3.org/2000/svg" width="498" height="94" viewBox="0 0 498 94">
           <g id="Groupe_27" data-name="Groupe 27" transform="translate(-634 -1177)">
             <path id="Rectangle_11" data-name="Rectangle 11" d="M7.333,0h404A86.667,86.667,0,0,1,498,86.667v0A7.333,7.333,0,0,1,490.667,94h-404A86.667,86.667,0,0,1,0,7.333v0A7.333,7.333,0,0,1,7.333,0Z" transform="translate(634 1177)" fill="#a9de81"/>
             <text id="Classification" transform="translate(687 1244)" fill="#f8f8f8" font-size="48" font-family="Comfortaa" font-weight="300" letter-spacing="-0.03em"><tspan x="0" y="0">CLASSIFICATION</tspan></text>
@@ -478,7 +478,7 @@ el_Form.addEventListener("submit", function (e) {
 
           /* Ajouter la classe pour les styles lorsque cette section apparaît */
           el_ResultProductInformationSection.classList.add(
-            "resultProduct-information-actif"
+            "result-information-actif"
           );
 
           /* Ajouter les deux éléments graphique pour l'effet de vague */
@@ -505,8 +505,8 @@ el_Form.addEventListener("submit", function (e) {
             el_ResultProductClassification
           );
           injectedNutriscore.classList.add(
-            "resultProduct-nutriscore",
-            "resultProduct-classification-childrens"
+            "result-nutriscore",
+            "result-classification-childrens"
           );
 
           switch (nutriScore) {
@@ -585,8 +585,8 @@ el_Form.addEventListener("submit", function (e) {
             el_ResultProductClassification
           );
           injectedNovascore.classList.add(
-            "resultProduct-novascore",
-            "resultProduct-classification-childrens"
+            "result-novascore",
+            "result-classification-childrens"
           );
 
           switch (novaScore) {
