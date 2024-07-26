@@ -1,10 +1,6 @@
 /* **********************************************************************************
  *                           Gestion des IMPORTATIONS                                *
  *************************************************************************************/
-// import { additifsEuropeenDiviseeOrdonneeFiltree } from "./additifsEUROPA.js";
-// import { additifsEuropeenDiviseeOrdonneeFiltree } from "./additifsEUROPA.mjs";
-// import { translate } from "../../node_modules/google-translate-api/index.js";
-// const additifsEuropeenDiviseeOrdonneeFiltree = require('./additifsEUROPA');
 import additifsEuropeenDiviseeOrdonneeFiltree from "./additifsEUROPA.js";
 import {
   capitalizeWord,
@@ -14,8 +10,6 @@ import {
   removeAllChildrensOfParentElement,
   toUppercaseWord,
 } from "./utils.js";
-// const additifsEuropeenDiviseeOrdonneeFiltree = require('./additifsEUROPA.js');
-// const translate = require('google-translate-api');
 
 /* **********************************************************************************
  *                           Récupérer les éléments HTML                             *
@@ -38,7 +32,7 @@ const el_AllergenInput = document.querySelector("#allergen-checkbox");
 const el_AdditiveInput = document.querySelector("#additive-checkbox");
 
 /** NO-ANIMAL **/
-const el_NoAnimalInput = document.querySelector("#no-halal-checkbox");
+const el_NoAnimalInput = document.querySelector("#no-animal-checkbox");
 
 /***** RESULT PRODUCT SECTION *****/
 const el_ResultProductSection = document.querySelector("#resultSection");
@@ -101,8 +95,14 @@ el_Form.addEventListener("submit", function (e) {
     removeAllChildrensOfParentElement(el_ResultNameSection);
     removeAllChildrensOfParentElement(el_ResultAllergenSection);
     removeAllChildrensOfParentElement(el_ResultAdditiveSection);
+    removeAllChildrensOfParentElement(el_ResultProductInformationH3);
+    removeAllChildrensOfParentElement(el_ResultProductClassification);
+    el_ResultProductInformationSection.classList.remove(
+      "result-information-actif"
+    );
+    document.querySelector(".wave")?.remove();
   } else {
-    console.dir(el_ResultNameSection);
+    // console.dir(el_ResultNameSection);
 
     /***** Effacer l'élément anciennement chercher lors d'une nouvelle recherche *****/
     removeAllChildrensOfParentElement(el_ResultNameSection);
@@ -110,6 +110,10 @@ el_Form.addEventListener("submit", function (e) {
     removeAllChildrensOfParentElement(el_ResultAdditiveSection);
     removeAllChildrensOfParentElement(el_ResultProductInformationH3);
     removeAllChildrensOfParentElement(el_ResultProductClassification);
+    el_ResultProductInformationSection.classList.remove(
+      "result-information-actif"
+    );
+    document.querySelector(".wave")?.remove();
 
     /***** Ouvrir une requête pour récupérer des données sur OpenFoodFact *****/
     const xhr = new XMLHttpRequest();
