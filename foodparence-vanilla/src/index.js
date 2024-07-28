@@ -160,7 +160,7 @@ el_Form.addEventListener("submit", async function (e) {
     // * Récupérer les allergenes
     let allergenArray = product.allergens_hierarchy;
     let traceArray = product.traces_hierarchy;
-    let resultAllergenAndTraceArrayFiltered = [];
+    let filteredAllAllergens = [];
     let allergensNotFound = false;
 
     if (el_AllergenInput.checked) {
@@ -196,49 +196,7 @@ el_Form.addEventListener("submit", async function (e) {
         );
         console.log("allAllergens :", allAllergens);
 
-        let filteredAllAllergens = [...allAllergens];
-
-        /* Filtre le tableau ordonné pour supprimmer les occurences */
-        // Lors de la première itération car le tableau est vide
-        // resultAllergenAndTraceArrayFiltered.push(
-        //   allAllergens[0]
-        // );
-
-        // Itère sur le tableau ordonné et récupère la valeur à comparer pour voir s'il est présent dans le tableau filtré
-        // for (let i = 1; i < allAllergens.length; i++) {
-        //   let trouvee = false;
-        //   // On récupère la valeur de comparaison présent dans le tableau ordonné
-        //   let elementDeRecherche = allAllergens[i];
-
-        //   // On compare elementDeRecherche avec la dernière valeur injecté du tableau filtré (la comparaison est nécessaire seulement pour le dernier élément du tableau filtré étant donné que les valeurs sont dans l'ordre, la seul occurence possible sera sur la dernière valeur qu'on vient d'injecter)
-        //   for (
-        //     let x = resultAllergenAndTraceArrayFiltered.length - 1;
-        //     x < resultAllergenAndTraceArrayFiltered.length;
-        //     x++
-        //   ) {
-        //     if (
-        //       elementDeRecherche ===
-        //       resultAllergenAndTraceArrayFiltered[
-        //         resultAllergenAndTraceArrayFiltered.length - 1
-        //       ]
-        //     ) {
-        //       // Si oui, on sort de la boucle et on injecte pas cet élément
-        //       trouvee = true;
-        //       break;
-        //     }
-        //   }
-        //   if (trouvee === false) {
-        //     // Sinon, on injecte l'élément car il n'est pas présent dans le tableau
-        //     resultAllergenAndTraceArrayFiltered.push(
-        //       allAllergens[i]
-        //     );
-        //   }
-        // }
-
-        // console.log(
-        //   "resultAllergenAndTraceArrayFiltered : ",
-        //   resultAllergenAndTraceArrayFiltered
-        // );
+        filteredAllAllergens = [...allAllergens];
       }
     }
 
@@ -247,7 +205,7 @@ el_Form.addEventListener("submit", async function (e) {
     let additivesNotFound = false;
     let formatedAdditivesArray = [];
     let resultAdditif = "";
-    let formatedAdditivesArrayWithNameGrouped = [];
+    const formatedAdditivesList = [];
 
     if (el_AdditiveInput.checked) {
       console.log("liste des additifs :", additifArray);
@@ -270,8 +228,6 @@ el_Form.addEventListener("submit", async function (e) {
 
         // * Récupérer le nom additif correspondant au code additif (dans le module additifsEUROPA.js)
         //Rechercher les additifs du produits recherché dans la liste additifsEuro
-        const formatedAdditivesList = [];
-
         for (
           let additifProduct = 0;
           additifProduct < formatedAdditivesArray.length;
@@ -306,54 +262,47 @@ el_Form.addEventListener("submit", async function (e) {
     el_ResultIntro.remove();
 
     /*** Injecter le NOM du produit ***/
-    // Injecter le H2
-    const injectedH3Name = injectElement("h3", el_ResultNameSection, "Produit");
-    injectedH3Name.classList.add("result-section__subtitle");
-    // Le nom du produit
-    const injectedProduct = injectElement("p", el_ResultNameSection, result);
-    injectedProduct.classList.add("resultName-section__product");
-    console.log(injectedProduct);
+    const titleResultNameSectionEl = injectElement(
+      "h3",
+      el_ResultNameSection,
+      "Produit"
+    );
+    titleResultNameSectionEl.classList.add("result-section__subtitle");
+
+    const productNameEl = injectElement("p", el_ResultNameSection, result);
+    productNameEl.classList.add("resultName-section__product");
 
     /*** Injecter les ALLERGENES ***/
-    // Les allergènes
     if (el_AllergenInput.checked) {
-      // Le <h2>
-      const injectedH3Allergen = injectElement(
+      const titleResultAllergenSectionEl = injectElement(
         "h3",
         el_ResultAllergenSection,
         "Allergènes"
       );
-      injectedH3Allergen.classList.add("result-section__subtitle");
+      titleResultAllergenSectionEl.classList.add("result-section__subtitle");
 
       if (allergensNotFound) {
-        const injectedPAllergen = injectElement(
+        console.log("aucun allergernes trouvés");
+        const allergenTextEl = injectElement(
           "p",
           el_ResultAllergenSection,
           "Aucun allergène semble être présent"
         );
-        injectedPAllergen.classList.add("result-section-default");
+        allergenTextEl.classList.add("result-section-default");
       } else {
-        // La liste <ul>
-        const injectedUlAllergen = injectElement(
-          "ul",
-          el_ResultAllergenSection
-        );
+        // Create <ul> element in the allergen result section
+        const allergenListEl = injectElement("ul", el_ResultAllergenSection);
 
-        // Les items <li>
-        /* Voir explication dans additifs pour la logique de ce code */
-        const itemsListAllergenObject = createHTMLListElementAndInjectInDOM(
-          resultAllergenAndTraceArrayFiltered,
-          "injectedLIAllergen",
+        // Create the <li> elements, inject them in the <ul> element was created and return an object of <li> HTML elements
+        const allergenItemsListObject = createHTMLListElementAndInjectInDOM(
+          filteredAllAllergens,
+          "allergenItem",
           "li",
-          injectedUlAllergen
+          allergenListEl
         );
 
-        let itemsListAllergenObjectKeyArray = Object.keys(
-          itemsListAllergenObject
-        );
-
-        for (let li of itemsListAllergenObjectKeyArray) {
-          itemsListAllergenObject[li].classList.add("result-section__item");
+        for (const li in allergenItemsListObject) {
+          allergenItemsListObject[li].classList.add("result-section__item");
         }
       }
     }
@@ -361,46 +310,34 @@ el_Form.addEventListener("submit", async function (e) {
     /*** Injecter les ADDITIFS ***/
     // Les additifs
     if (el_AdditiveInput.checked) {
-      // Le <h2>
-      const injectedH3Additive = injectElement(
+      const titleResultAdditivSectionEl = injectElement(
         "h3",
         el_ResultAdditiveSection,
         "Additifs"
       );
-      injectedH3Additive.classList.add("result-section__subtitle");
+      titleResultAdditivSectionEl.classList.add("result-section__subtitle");
 
       if (additivesNotFound) {
-        const injectedPAdditive = injectElement(
+        const additivTextEl = injectElement(
           "p",
           el_ResultAdditiveSection,
           "Aucun additif semble être présent"
         );
-        injectedPAdditive.classList.add("result-section-default");
+        additivTextEl.classList.add("result-section-default");
       } else {
-        // La liste <ul>
-        const injectedUlAdditive = injectElement(
-          "ul",
-          el_ResultAdditiveSection
-        );
+        // Create <ul> element in the allergen result section
+        const additivListEl = injectElement("ul", el_ResultAdditiveSection);
 
-        // Les items <li>
-        /* Créer un objet contenant dynamiquement des propriétés 'injectedAdditive${N}' où chacune de ces propriété contient l'objet HTML <li> créé. Je peux donc accéder à l'objet HTML DOM en passant par l'objet puis la propriété pour manipuler cet HTMLElement avec les méthodes du DOM.
-              EX: itemsListAdditiveObject.injectedAdditive0.style.color = "red";
-              J'accède à l'objet puis à la propriété injectedAdditive0 qui à pour valeur un <li>. Puis je le manipule avec les méthodes du DOM. Cela ne créé pas des sous propriétés mais utilise l'objet li est accède à ses méthodes et propriétés.
-              Si je veux ajouter une classe ou autre sur l'ensemble des <li>, je n'ai qu'à itérer sur les propriétés de l'objets qui sont les <li> crées. */
-        const itemsListAdditiveObject = createHTMLListElementAndInjectInDOM(
-          formatedAdditivesArrayWithNameGrouped,
-          "injectedLIAdditive",
+        // Create the <li> elements, inject them in the <ul> element was created and return an object of <li> HTML elements
+        const additivItemsListObject = createHTMLListElementAndInjectInDOM(
+          formatedAdditivesList,
+          "additivItem",
           "li",
-          injectedUlAdditive
+          additivListEl
         );
 
-        let itemsListAdditiveObjectKeyArray = Object.keys(
-          itemsListAdditiveObject
-        );
-
-        for (let li of itemsListAdditiveObjectKeyArray) {
-          itemsListAdditiveObject[li].classList.add("result-section__item");
+        for (const li in additivItemsListObject) {
+          additivItemsListObject[li].classList.add("result-section__item");
         }
       }
     }

@@ -69,11 +69,10 @@ function removeAllChildrensOfParentElement(parentHTMLElement) {
 /**
  * Create an object by iterating over an array. Each properties of this object contain an HTMLElement. Each textContent of these HTMLElement of these properties contain a text value form the array. And inject all of this elements in a HTMLElement parent.
  * @param {array} arrayFrom The Array where we take the text value (textContent) for the HTMLElement
- * @param {string} nameOfProperties The name for each properties. This name is followed by his presence number in the properties list
+ * @param {string} nameOfProperties The name for each created object properties. This name is followed by his presence number in the properties list
  * @param {object} parentToAppend The HTMLElement that we want to inject the HTML list
  * @returns An object with HTMLElement as properties
  */
-// function createObjectofAListHTMLElementFromValueofArrayAndInjectThem(
 function createHTMLListElementAndInjectInDOM(
   arrayFrom,
   nameOfProperties,
