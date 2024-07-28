@@ -12,6 +12,7 @@
   --green: #a9de81;
   --smoke-white: #f8f8f8;
   --light-purple: #dec0f5;
+  --red: #ff866e;
 
   /* TEXT SIZE */
   --size-title-form: 30px;
@@ -57,6 +58,8 @@ body {
   width: 100vw;
   min-width: 275px;
   overflow-x: hidden;
+  display: flex;
+  justify-content: center;
 }
 
 .container {
@@ -446,6 +449,47 @@ body {
   align-items: flex-end;
   font-size: var(--size-three);
   padding-bottom: var(--size-one);
+}
+
+/*************** ERROR MESSAGE ******************/
+.error-container {
+  position: fixed;
+  top: -65px;
+  height: var(--size-six);
+  width: fit-content;
+  background-color: var(--red);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 var(--size-three);
+  border-radius: 15px;
+  box-shadow: 0 5px 8px #bd614fc9;
+  font-weight: bolder;
+  transition: top 300ms ease-in-out;
+  z-index: 5;
+}
+.error-message {
+}
+
+.display-error {
+  top: 60px;
+  animation-name: shake-count-effect;
+  animation-delay: 530ms;
+  animation-duration: 100ms;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+/*************** KEYFRAMES ******************/
+@keyframes shake-count-effect {
+  0% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
 }
 
 /*************** HAMBURGER MENU ******************/
