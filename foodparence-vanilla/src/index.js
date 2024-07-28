@@ -105,10 +105,14 @@ el_Form.addEventListener("submit", async function (e) {
     el_AllergenInput.checked = false;
     el_NoAnimalInput.checked = false;
 
+    setTimeout(() => {
+      el_ErrorContainer.classList.remove("display-error");
+    }, 3000);
+
     return;
   }
 
-  /***** Effacer l'élément anciennement chercher lors d'une nouvelle recherche *****/
+  // * Effacer l'élément anciennement chercher lors d'une nouvelle recherche
   removeAllChildrensOfParentElement(el_ResultNameSection);
   removeAllChildrensOfParentElement(el_ResultAllergenSection);
   removeAllChildrensOfParentElement(el_ResultAdditiveSection);
@@ -119,218 +123,184 @@ el_Form.addEventListener("submit", async function (e) {
   );
   document.querySelector(".wave")?.remove();
 
-  /***** Ouvrir une requête pour récupérer des données sur OpenFoodFact *****/
-
   if (result.status_verbose === "product found") {
-    /***** Récupérer la réponse *****/
-    // Récupérer la réponse
-    let responseRequest = xhr.response;
-
-    // Parser en objet JS
-    let responseRequestObject = JSON.parse(responseRequest);
-
-    console.log(responseRequestObject);
-    // console.log(responseRequestObject.product.generic_name);
-
-    /***** Récupérer le nom de la marque et du produit *****/
-    // Déclarer les valeurs récupérant les différents nom du produits selon leur disponibilité
-    let nameProduct = null;
+    // * Récupérer le nom de la marque et du produit
+    let product = result.product;
+    let findedNameProduct = null;
 
     // On remplace les ',' par ', ' si il y en a
-    let brands = responseRequestObject.product.brands.replaceAll(",", ", ");
-    let abbreviatedProductName =
-      responseRequestObject.product.abbreviated_product_name;
-    let productName = responseRequestObject.product.product_name;
-    let productNameFr = responseRequestObject.product.product_name_fr;
-    let genericName = responseRequestObject.product.generic_name;
+    let brands = product.brands.replaceAll(",", ", ");
+    let abbreviatedProductName = product.abbreviated_product_name;
+    let productName = product.product_name;
+    let productNameFr = product.product_name_fr;
+    let genericName = product.generic_name;
 
     // Regarder si les éléments du nom du produit récupérés sont présents en tant que propriété et si ils ne sont pas vide (on récupère dans l'ordre donné sinon)
     if (productNameFr) {
-      nameProduct = capitalizeWord(productNameFr);
+      findedNameProduct = capitalizeWord(productNameFr);
     } else if (productName) {
-      nameProduct = capitalizeWord(productName);
+      findedNameProduct = capitalizeWord(productName);
     } else if (abbreviatedProductName) {
-      nameProduct = capitalizeWord(abbreviatedProductName);
+      findedNameProduct = capitalizeWord(abbreviatedProductName);
     } else if (genericName) {
-      nameProduct = capitalizeWord(genericName);
+      findedNameProduct = capitalizeWord(genericName);
     } else {
-      nameProduct = "Nom du produit inconnu";
+      findedNameProduct = "Nom du produit inconnu";
     }
 
-    /***** Récupérer le nom de la marque: le formater ou texte par defaut sinon *****/
+    // * Récupérer le nom de la marque: le formater ou texte par defaut sinon
     let formatedBrand = null;
     if (brands) {
       brands = toUppercaseWord(brands);
-      formatedBrand = `${brands} - ${nameProduct}`;
+      formatedBrand = `${brands} - ${findedNameProduct}`;
     } else {
-      formatedBrand = `Marque inconnue - ${nameProduct}`;
+      formatedBrand = `Marque inconnue - ${findedNameProduct}`;
     }
 
-    /***** Récupérer les allergenes *****/
-    let allergenArray = responseRequestObject.product.allergens_hierarchy;
-    let traceArray = responseRequestObject.product.traces_hierarchy;
-    let resultAllergenAndTraceArrayOrdonned = [];
+    // * Récupérer les allergenes
+    let allergenArray = product.allergens_hierarchy;
+    let traceArray = product.traces_hierarchy;
     let resultAllergenAndTraceArrayFiltered = [];
-    let resultAllergenAndTraceAbsent = false;
+    let allergensNotFound = false;
 
     if (el_AllergenInput.checked) {
-      console.log(allergenArray, traceArray);
+      console.log("les allergènes :", allergenArray, traceArray);
 
       // Si les tableaux d'allergenes et de traces récupérés sont vides
-      if (allergenArray.length < 1 && traceArray.length < 1) {
-        resultAllergenAndTraceAbsent = true;
+      if (!allergenArray.length && !traceArray.length) {
+        allergensNotFound = true;
       } else {
         // Récupérer les éléments du tableau allergenArray
-        let allergenArrayFormate = [];
+        let formatedAllergensArray = [];
         pushSearchedValueFromArrayToNewArray(
           allergenArray,
-          allergenArrayFormate,
+          formatedAllergensArray,
           ":",
           1
         );
-        console.log(allergenArrayFormate);
+        console.log("Tableaux des allergies :", formatedAllergensArray);
 
         // Récupérer les éléments du tableau allergenArray
-        let traceArrayFormate = [];
+        let formatedTracesArray = [];
         pushSearchedValueFromArrayToNewArray(
           traceArray,
-          traceArrayFormate,
+          formatedTracesArray,
           ":",
           1
         );
-        console.log(traceArrayFormate);
+        console.log("Tableaux des traces d'allergies :", formatedTracesArray);
 
         // Concaténer les deux tableaux pour former le tableau total d'allergènes
-        resultAllergenAndTraceArrayOrdonned = allergenArrayFormate
-          .concat(traceArrayFormate)
-          .sort();
-        console.log(resultAllergenAndTraceArrayOrdonned);
+        let allAllergens = new Set(
+          formatedAllergensArray.concat(formatedTracesArray).sort()
+        );
+        console.log("allAllergens :", allAllergens);
+
+        let filteredAllAllergens = [...allAllergens];
 
         /* Filtre le tableau ordonné pour supprimmer les occurences */
         // Lors de la première itération car le tableau est vide
-        resultAllergenAndTraceArrayFiltered.push(
-          resultAllergenAndTraceArrayOrdonned[0]
-        );
+        // resultAllergenAndTraceArrayFiltered.push(
+        //   allAllergens[0]
+        // );
 
         // Itère sur le tableau ordonné et récupère la valeur à comparer pour voir s'il est présent dans le tableau filtré
-        for (let i = 1; i < resultAllergenAndTraceArrayOrdonned.length; i++) {
-          let trouvee = false;
-          // On récupère la valeur de comparaison présent dans le tableau ordonné
-          let elementDeRecherche = resultAllergenAndTraceArrayOrdonned[i];
+        // for (let i = 1; i < allAllergens.length; i++) {
+        //   let trouvee = false;
+        //   // On récupère la valeur de comparaison présent dans le tableau ordonné
+        //   let elementDeRecherche = allAllergens[i];
 
-          // On compare elementDeRecherche avec la dernière valeur injecté du tableau filtré (la comparaison est nécessaire seulement pour le dernier élément du tableau filtré étant donné que les valeurs sont dans l'ordre, la seul occurence possible sera sur la dernière valeur qu'on vient d'injecter)
-          for (
-            let x = resultAllergenAndTraceArrayFiltered.length - 1;
-            x < resultAllergenAndTraceArrayFiltered.length;
-            x++
-          ) {
-            if (
-              elementDeRecherche ===
-              resultAllergenAndTraceArrayFiltered[
-                resultAllergenAndTraceArrayFiltered.length - 1
-              ]
-            ) {
-              // Si oui, on sort de la boucle et on injecte pas cet élément
-              trouvee = true;
-              break;
-            }
-          }
-          if (trouvee === false) {
-            // Sinon, on injecte l'élément car il n'est pas présent dans le tableau
-            resultAllergenAndTraceArrayFiltered.push(
-              resultAllergenAndTraceArrayOrdonned[i]
-            );
-          }
-        }
+        //   // On compare elementDeRecherche avec la dernière valeur injecté du tableau filtré (la comparaison est nécessaire seulement pour le dernier élément du tableau filtré étant donné que les valeurs sont dans l'ordre, la seul occurence possible sera sur la dernière valeur qu'on vient d'injecter)
+        //   for (
+        //     let x = resultAllergenAndTraceArrayFiltered.length - 1;
+        //     x < resultAllergenAndTraceArrayFiltered.length;
+        //     x++
+        //   ) {
+        //     if (
+        //       elementDeRecherche ===
+        //       resultAllergenAndTraceArrayFiltered[
+        //         resultAllergenAndTraceArrayFiltered.length - 1
+        //       ]
+        //     ) {
+        //       // Si oui, on sort de la boucle et on injecte pas cet élément
+        //       trouvee = true;
+        //       break;
+        //     }
+        //   }
+        //   if (trouvee === false) {
+        //     // Sinon, on injecte l'élément car il n'est pas présent dans le tableau
+        //     resultAllergenAndTraceArrayFiltered.push(
+        //       allAllergens[i]
+        //     );
+        //   }
+        // }
 
-        console.log(
-          "resultAllergenAndTraceArrayFiltered : ",
-          resultAllergenAndTraceArrayFiltered
-        );
+        // console.log(
+        //   "resultAllergenAndTraceArrayFiltered : ",
+        //   resultAllergenAndTraceArrayFiltered
+        // );
       }
     }
 
     /***** Récupérer les additifs *****/
-    let additifArray = responseRequestObject.product.additives_original_tags;
-    let resultAdditifABSENT = false;
-    let additifArrayFormate = [];
+    let additifArray = product.additives_original_tags;
+    let additivesNotFound = false;
+    let formatedAdditivesArray = [];
     let resultAdditif = "";
-    let additifArrayFormateWithNameGrouped = [];
+    let formatedAdditivesArrayWithNameGrouped = [];
 
     if (el_AdditiveInput.checked) {
-      console.log(additifArray);
+      console.log("liste des additifs :", additifArray);
 
       // Si le tableau d'additifs est vide
-      if (additifArray.length < 1) {
+      if (!additifArray.length) {
         // resultAdditif = "Aucuns additifs ne semblent être présents"
-        resultAdditifABSENT = true;
+        additivesNotFound = true;
       } else {
         // Récupérer les éléments du tableau additifArray
         pushSearchedValueFromArrayToNewArray(
           additifArray,
-          additifArrayFormate,
+          formatedAdditivesArray,
           ":",
           1
         );
-        console.log(additifArrayFormate);
-        resultAdditif = additifArrayFormate.join(", ");
-        console.log(resultAdditif);
+        resultAdditif = formatedAdditivesArray.join(", ");
+        console.log("resultAdditif : ", resultAdditif);
+        console.log("formatedAdditivesArray : ", formatedAdditivesArray);
 
-        /*** Récupérer le nom additif correspondant au code additif (dans le module additifsEUROPA.js) ***/
-        // Rechercher si l'élément est présent dans la liste des additifs et les extraire dans un tableau
-        let additifArrayFormateWithNameSeparated = [];
+        // * Récupérer le nom additif correspondant au code additif (dans le module additifsEUROPA.js)
+        //Rechercher les additifs du produits recherché dans la liste additifsEuro
+        const formatedAdditivesList = [];
+
         for (
-          let numberOfPresentAdditives = 0;
-          numberOfPresentAdditives < additifArrayFormate.length;
-          numberOfPresentAdditives++
+          let additifProduct = 0;
+          additifProduct < formatedAdditivesArray.length;
+          additifProduct++
         ) {
-          let trouvee = false;
-
           for (
-            let i = 0;
-            i < additifsEuropeenDiviseeOrdonneeFiltree.length;
-            i++
+            let indexAdditifArray = 0;
+            indexAdditifArray < additifsEuropeenDiviseeOrdonneeFiltree.length;
+            indexAdditifArray++
           ) {
-            if (
-              additifsEuropeenDiviseeOrdonneeFiltree[i][0] ===
-              additifArrayFormate[numberOfPresentAdditives]
-            ) {
-              additifArrayFormateWithNameSeparated.push(
-                additifsEuropeenDiviseeOrdonneeFiltree[i]
+            const isFoundedSameAdditif =
+              formatedAdditivesArray[additifProduct] ===
+              additifsEuropeenDiviseeOrdonneeFiltree[indexAdditifArray][0];
+            if (isFoundedSameAdditif) {
+              formatedAdditivesList.push(
+                additifsEuropeenDiviseeOrdonneeFiltree[indexAdditifArray].join(
+                  ": "
+                )
               );
-              trouvee = true;
-              break;
             }
           }
-
-          if (!trouvee) {
-            additifArrayFormateWithNameSeparated.push([
-              additifArrayFormate[numberOfPresentAdditives],
-              "Oups! Additif inconnu",
-            ]);
-          }
-
-          console.log(additifArrayFormateWithNameSeparated);
         }
-
-        // Regrouper les codes repsectivement avec leur dénomination
-        for (
-          let numberOfSubArray = 0;
-          numberOfSubArray < additifArrayFormateWithNameSeparated.length;
-          numberOfSubArray++
-        ) {
-          additifArrayFormateWithNameGrouped.push(
-            additifArrayFormateWithNameSeparated[numberOfSubArray].join(": ")
-          );
-        }
-
-        console.log(additifArrayFormateWithNameGrouped);
+        console.log("formatedAdditivesList :", formatedAdditivesList);
       }
     }
 
-    /***** Récupérer les ingrédients non halal *****/
+    // TODO:  Récupérer les ingrédients avec la présence animal
 
-    /***** Injecter les resultats dans le DOM *****/
+    // * Injecter les resultats dans le DOM
 
     /*** Supprimer l'élément <p> d'intro ***/
     el_ResultIntro.remove();
@@ -355,7 +325,7 @@ el_Form.addEventListener("submit", async function (e) {
       );
       injectedH3Allergen.classList.add("result-section__subtitle");
 
-      if (resultAllergenAndTraceAbsent) {
+      if (allergensNotFound) {
         const injectedPAllergen = injectElement(
           "p",
           el_ResultAllergenSection,
@@ -399,7 +369,7 @@ el_Form.addEventListener("submit", async function (e) {
       );
       injectedH3Additive.classList.add("result-section__subtitle");
 
-      if (resultAdditifABSENT) {
+      if (additivesNotFound) {
         const injectedPAdditive = injectElement(
           "p",
           el_ResultAdditiveSection,
@@ -419,7 +389,7 @@ el_Form.addEventListener("submit", async function (e) {
               J'accède à l'objet puis à la propriété injectedAdditive0 qui à pour valeur un <li>. Puis je le manipule avec les méthodes du DOM. Cela ne créé pas des sous propriétés mais utilise l'objet li est accède à ses méthodes et propriétés.
               Si je veux ajouter une classe ou autre sur l'ensemble des <li>, je n'ai qu'à itérer sur les propriétés de l'objets qui sont les <li> crées. */
         const itemsListAdditiveObject = createHTMLListElementAndInjectInDOM(
-          additifArrayFormateWithNameGrouped,
+          formatedAdditivesArrayWithNameGrouped,
           "injectedLIAdditive",
           "li",
           injectedUlAdditive
@@ -462,7 +432,7 @@ el_Form.addEventListener("submit", async function (e) {
     injectedImgWaveInformation.classList.add("wave");
 
     /* Injecter l'image du nutriscore */
-    let nutriScore = responseRequestObject.product.nutriscore_grade;
+    let nutriScore = product.nutriscore_grade;
     let injectedNutriscore = null;
 
     injectedNutriscore = injectElement("img", el_ResultProductClassification);
@@ -521,7 +491,7 @@ el_Form.addEventListener("submit", async function (e) {
     }
 
     /* Injecter l'image du NOVA score */
-    let novaScore = responseRequestObject.product.nova_group;
+    let novaScore = product.nova_group;
     let injectedNovascore = null;
 
     injectedNovascore = injectElement("img", el_ResultProductClassification);
