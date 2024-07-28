@@ -91,6 +91,16 @@ function createHTMLListElementAndInjectInDOM(
   return objectToCreate;
 }
 
+async function fetchBarcodeDatas(barcode) {
+  const response = await fetch(
+    `https://world.openfoodfacts.org/api/v0/product/${barcode}.json`
+  );
+
+  const result = response.json();
+
+  return result;
+}
+
 export {
   removeAllChildrensOfParentElement,
   capitalizeWord,
@@ -98,4 +108,5 @@ export {
   pushSearchedValueFromArrayToNewArray,
   injectElement,
   createHTMLListElementAndInjectInDOM,
+  fetchBarcodeDatas,
 };
