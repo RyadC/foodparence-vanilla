@@ -15,10 +15,12 @@
   margin-left: var(--size-six);
   position: relative;
   padding-top: var(--size-two);
+  color: var(--extra-dark-gray);
 }
 .brand__copyright {
   font-size: var(--size-three);
   position: absolute;
+  color: var(--extra-dark-gray);
 }
 .agency {
   /* width: min-content; */
@@ -33,4 +35,5 @@
   align-items: flex-end;
   font-size: var(--size-three);
   padding-bottom: var(--size-one);
+  color: var(--extra-dark-gray);
 }
