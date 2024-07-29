@@ -1,0 +1,21 @@
+body {
+  height: 100%;
+  width: 100vw;
+  min-width: 275px;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  font-family: "Comfortaa";
+  font-weight: lighter;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  min-width: 275px;
+}

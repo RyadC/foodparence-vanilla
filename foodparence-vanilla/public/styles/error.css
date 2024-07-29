@@ -1,0 +1,27 @@
+/*************** ERROR MESSAGE ******************/
+.error-container {
+  position: fixed;
+  top: -65px;
+  height: var(--size-six);
+  width: fit-content;
+  background-color: var(--red);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 var(--size-three);
+  border-radius: 15px;
+  box-shadow: 0 5px 8px #bd614fc9;
+  font-weight: bolder;
+  transition: top 300ms ease-in-out;
+  z-index: 5;
+}
+.error-message {
+}
+
+.display-error {
+  top: 60px;
+  animation-name: shake-count-effect;
+  animation-delay: 530ms;
+  animation-duration: 100ms;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}

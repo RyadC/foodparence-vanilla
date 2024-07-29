@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../public/styles/variables.css" />
+    <link rel="stylesheet" href="../../public/styles/font-fonctionnement.css" />
+    <link rel="stylesheet" href="../../public/styles/reset.css" />
+    <link rel="stylesheet" href="../../public/styles/general.css" />
+    <link rel="stylesheet" href="../../public/styles/header.css" />
+    <link rel="stylesheet" href="../../public/styles/fonctionnement.css" />
+    <link rel="stylesheet" href="../../public/styles/error.css" />
+    <link rel="stylesheet" href="../../public/styles/hamburger-menu.css" />
+    <link rel="stylesheet" href="../../public/styles/footer.css" />
+    <link rel="stylesheet" href="../../public/styles/media-queries.css" />
+
+    <title>FoodParence | Fonctionnement</title>
+  </head>
+
+  <body>
+    <!-- Assombrir lors de l'ouverture du menu burger-->
+    <div class="overlay"></div>
+
+    <div class="container">
+      <header class="header">
+        <div class="header__logo">
+          <a class="header__link" href="index.html">
+            <img
+              class="header__img"
+              src="../assets/images/Groupe 4.png"
+              alt="Logo de foodParence en minitaure - variante 2"
+            />
+          </a>
+        </div>
+        <nav class="nav">
+          <ul class="nav-menu">
+            <li class="nav__item">
+              <a class="nav__link" href="#">Ressources</a>
+            </li>
+            <li class="nav__item">
+              <a class="nav__link" href="/src/pages/fonctionnement.html"
+                >Fonctionnement</a
+              >
+            </li>
+            <li class="nav__item">
+              <a class="nav__link" href="#">Contact</a>
+            </li>
+          </ul>
+
+          <ul class="nav-menu-burgerIcon">
+            <svg
+              class="burger-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="21"
+              viewBox="0 0 30 21"
+            >
+              <g
+                id="Icon_feather-menu"
+                data-name="Icon feather-menu"
+                transform="translate(-3 -7.5)"
+              >
+                <path
+                  id="Tracé_7"
+                  data-name="Tracé 7"
+                  d="M4.5,18h27"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="3"
+                />
+                <path
+                  id="Tracé_8"
+                  data-name="Tracé 8"
+                  d="M4.5,9h27"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="3"
+                />
+                <path
+                  id="Tracé_9"
+                  data-name="Tracé 9"
+                  d="M4.5,27h27"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="3"
+                />
+              </g>
+            </svg>
+          </ul>
+        </nav>
+      </header>
+
+      <!-- Apparition du menu en responsive -->
+      <div class="div-menu-burger disabled">
+        <svg
+          class="arrow-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="31.504"
+          height="30.705"
+          viewBox="0 0 31.504 30.705"
+        >
+          <path
+            id="Icon_awesome-arrow-right"
+            data-name="Icon awesome-arrow-right"
+            d="M13.395,4.7l1.561-1.561a1.681,1.681,0,0,1,2.384,0L31.008,16.8a1.681,1.681,0,0,1,0,2.384L17.339,32.857a1.681,1.681,0,0,1-2.384,0L13.395,31.3a1.689,1.689,0,0,1,.028-2.412L21.9,20.813H1.688A1.683,1.683,0,0,1,0,19.125v-2.25a1.683,1.683,0,0,1,1.688-1.687H21.9L13.423,7.116A1.677,1.677,0,0,1,13.395,4.7Z"
+            transform="translate(0 -2.647)"
+          />
+        </svg>
+
+        <ul class="nav-menu-burger">
+          <li class="nav-menu-burger-item">
+            <a class="nav-menu-burger-item-link" href="#">Ressources</a>
+          </li>
+          <li class="nav-menu-burger-item">
+            <a class="nav-menu-burger-item-link" href="#">Fonctionnement</a>
+          </li>
+          <li class="nav-menu-burger-item">
+            <a class="nav-menu-burger-item-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+
+      <section class="home">
+        <h1 class="home-h1">
+          <a class="home-h1-link" href="index.html">
+            <img
+              class="home-h1-img"
+              src="../assets/images/Groupe 1.png"
+              alt="Le Logo de Food'Parence"
+            />
+          </a>
+        </h1>
+      </section>
+
+      <section class="section-fonctionnement">
+        <div class="comment">
+          <h2 class="comment-h2 fonctionnement-h2">Comment ça marche ?</h2>
+          <div class="comment-textBlock">
+            <p>Le principe est simple : un code-barre… et c'est parti !</p>
+            <p>
+              Entrez votre code barre dans le champs de recherche puis cochez
+              <strong class="text-important"
+                >les informations dont vous aimeriez voir apparaître suite à
+                votre recherche (allergènes, additifs, etc.)</strong
+              >.
+            </p>
+            <p>
+              Une fois vos critères de choix cochés et votre code-barre saisie,
+              vous pouvez appuyer sur l'icone
+              <svg
+                class="loupe-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="39.777"
+                height="39.787"
+                viewBox="0 0 39.777 39.787"
+              >
+                <path
+                  id="Icon_ionic-ios-search"
+                  data-name="Icon ionic-ios-search"
+                  d="M43.811,41.4,32.748,30.234a15.766,15.766,0,1,0-2.393,2.424l10.99,11.094a1.7,1.7,0,0,0,2.4.062A1.714,1.714,0,0,0,43.811,41.4ZM20.359,32.793a12.449,12.449,0,1,1,8.8-3.646A12.372,12.372,0,0,1,20.359,32.793Z"
+                  transform="translate(-4.5 -4.493)"
+                />
+              </svg>
+              pour lancer la recherche. Les résultats seront par la suite
+              affichés juste en dessous !
+            </p>
+          </div>
+        </div>
+
+        <div class="resultats">
+          <h2 class="resultats-h2 fonctionnement-h2">Les résultats</h2>
+          <div class="resultats-textBlock">
+            <p>
+              Les résultats concernant la recherche se divisent en deux sections
+              distinctes:
+            </p>
+            <ul>
+              <li>
+                Les informations sur l'identité du produit et son contenu (sa
+                marque, son nom, ses ingrédients, etc.).
+              </li>
+              <li>
+                Les informations qualitatives / nutritionnelles avec l'affichage
+                du nutriscore et du novascore.
+              </li>
+            </ul>
+
+            <h3>L'identité du produit</h3>
+            <p>
+              Les résultats concernant l'identité du produit s'afficheront dans
+              la section nommée "RESUTAT".
+            </p>
+            <p>Le résultat pourront contenir trois informations:</p>
+            <ul>
+              <li>La marque du produit suivie de son nom;</li>
+              <li>Les allergènes possiblements présents;</li>
+              <li>les additifs possibelemnts présents.</li>
+            </ul>
+
+            <p>
+              Les résultats contiendront au minimum la marque du produit suivi
+              de sa dénomination si le produit est connu et inscris dans la base
+              de données. Si les cases "allergènes" et/ou "additifs" ont été
+              cochées, alors ces informations s'afficheront en complément dans
+              la même section respectivement sous les titres "Allergènes" et
+              "Additifs".
+            </p>
+
+            <h3>La qualité du produit</h3>
+            <p>
+              Les résultats nutritionnels s'afficheront dans la section
+              "Classification". Ces informations apporteront un certain regard
+              critique du produit. Ainsi, deux labels de notations seront
+              proposés:
+              <a
+                href="https://solidarites-sante.gouv.fr/prevention-en-sante/preserver-sa-sante/nutrition/nutri-score/article/nutri-score-un-etiquetage-nutritionnel-pour-favoriser-une-alimentation"
+                title="Qu'est-ce que le nutriscore ?"
+                target="_blank"
+                >le nutriscore</a
+              >
+              et
+              <a
+                href="https://fr.wikipedia.org/wiki/NOVA_(nutrition)"
+                title="Qu'est-ce que le novascore ?"
+                target="_blank"
+                >le novascore</a
+              >.
+            </p>
+
+            <h3>Présence des résultats</h3>
+            <p>
+              Les résultats s'afficheront si les données sont présents dans la
+              base de données. Dans le cas contraire, un message s'affichera
+              pour informer l'utilisateur que le produit, l'allergène ou
+              l'additif n'est pas connu.
+            </p>
+            <p>
+              Il en est de même pour les notations des deux labels. Si ces
+              derniers ne sont pas renseignés dans la base de données, le label
+              apparaîtra grisé.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="marque">
+          <span class="marque-text">FoodParence</span>
+          <span class="marque-copyright">&copy;</span>
+        </div>
+
+        <div class="agence">
+          <div class="agence-box">
+            <span class="agence-text">MuslimAgency</span>
+            <span class="agence-copyright">&copy;</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="../scripts/hamburger-menu.js"></script>
+  </body>
+</html>

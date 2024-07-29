@@ -1,0 +1,111 @@
+/*************** HAMBURGER MENU ******************/
+
+/*A activer lors de l'activation du menu burger en responsive*/
+
+/* La class darken*/
+/* .darken{
+  position: absolute;
+  height: calc(100vh * 1.1);
+  z-index: 5;
+  background-color: rgba(0, 0, 0, 0.9);
+  width: 100%;
+  transition: 0.53s ease;
+} */
+.overlay {
+  position: absolute;
+  height: calc(100vh * 1.1);
+  background-color: rgba(255, 255, 255, 0);
+  z-index: -1;
+  width: 100%;
+  transition: z-index 15s ease, background-color 0.53s ease;
+}
+.darken {
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 5;
+  transition: 2s background-color ease;
+}
+/*Body*/
+.overflow-stop {
+  overflow-y: hidden;
+}
+
+.nav-menu-burgerIcon {
+  position: absolute;
+  right: var(--size-one);
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  /* display: none; */
+}
+.div-menu-burger {
+  background-color: var(--green);
+  height: calc(100vh * 1.1);
+  width: 30%;
+  min-width: 263px;
+  max-width: 400px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  padding-top: var(--size-five);
+  z-index: 5;
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  transform: translateX(300px);
+  transition: 1.33s ease;
+}
+.arrow-icon {
+  cursor: pointer;
+  height: calc(var(--size-five) * 1.2);
+  width: calc(var(--size-five) * 1.2);
+  /* padding-left: var(--size-two); */
+  padding-right: var(--size-three);
+  align-self: flex-end;
+  fill: rgb(238, 236, 236);
+}
+.nav__burger {
+  margin-top: var(--size-five);
+  height: 18%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: var(--size-four);
+  font-weight: 700;
+  color: var(--white);
+  text-transform: uppercase;
+}
+.burger__link {
+  color: var(--white);
+  padding: var(--size-two) var(--size-three);
+  /* padding-left: var(--size-two); */
+  /* margin-right: var(--size-four); */
+  margin-left: var(--size-two);
+  transition: ease 0.53s;
+}
+.nav-menu-burger-item-link:hover {
+  color: var(--dark-green);
+  background-color: var(--white);
+  border-radius: 0 calc(var(--size-four) * 1.2) 0 calc(var(--size-four) * 1.2);
+  padding: var(--size-two) var(--size-three);
+}
+.burger-icon {
+  fill: var(--white);
+}
+.burger-icon:hover {
+  fill: var(--green);
+}
+
+/*Item de list*/
+.disabled {
+  display: none;
+}
+/*Effet : Apparition du menu*/
+.apparation-burgerMenu {
+  transform: translateX(0px);
+  transition: 1.33s ease;
+}

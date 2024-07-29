@@ -1,0 +1,36 @@
+/************* FOOTER ***************/
+.footer {
+  background-color: var(--light-purple);
+  height: calc(var(--size-seven) * 0.8);
+  width: 100%;
+  /* position: relative; */
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  color: var(--extra-dark-gray);
+}
+.brand {
+  font-size: calc(var(--size-four) * 1.4);
+  margin-left: var(--size-six);
+  position: relative;
+  padding-top: var(--size-two);
+}
+.brand__copyright {
+  font-size: var(--size-three);
+  position: absolute;
+}
+.agency {
+  /* width: min-content; */
+  display: inline;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  font-size: var(--size-three);
+  padding-bottom: var(--size-one);
+}

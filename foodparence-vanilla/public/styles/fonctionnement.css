@@ -1,0 +1,36 @@
+/**************** FONCTIONNEMENT *********************/
+
+.section-fonctionnement {
+  background-color: var(--gray);
+  height: 100%;
+  width: 100%;
+  padding: var(--size-six) var(--size-limit);
+}
+
+.fonctionnement-h2 {
+  text-transform: uppercase;
+  color: var(--dark-green);
+  margin-bottom: var(--size-five);
+  font-size: calc(var(--size-five) * 0.9);
+}
+
+.comment {
+  padding-bottom: var(--size-seven);
+}
+
+.comment-textBlock {
+  font-size: calc(var(--size-four) * 0.9);
+  line-height: calc(var(--size-four) * 1.4);
+  color: var(--extra-dark-gray);
+  font-weight: 500;
+}
+.important {
+  color: var(--dark-green);
+  font-weight: 500;
+}
+.loupe-icon {
+  height: var(--size-five);
+  fill: var(--purple);
+  position: relative;
+  top: 10px;
+}

@@ -1,0 +1,40 @@
+:root {
+  /* COLOR */
+  --white: white;
+  --gray: #ececec;
+  --light-green: #d1ffae;
+  --extra-light-gray: #e1ffca;
+  --purple: #c694ec;
+  --dark-green: #3e8d01;
+  --dark-gray: #a1a1a1;
+  /* --extra-dark-gray: #808080; */
+  --extra-dark-gray: #707170;
+  --green: #a9de81;
+  --smoke-white: #f8f8f8;
+  --light-purple: #dec0f5;
+  --red: #ff866e;
+
+  /* TEXT SIZE */
+  --size-title-form: 30px;
+  --size-text-form: 30px;
+  --size-h1-text-important: 50px;
+  --size-h1-text-normal: 50px;
+  --size-muslimAgency: 20px;
+  --size-text-p: 40px;
+  --size-h3-text: 60px;
+  --size-text-logo: 79px;
+  --size-text-menu: 19px;
+  --size-h2-text: 76px;
+  --size-header: 96px;
+  --size-limit: 65px;
+
+  /* GENERAL SIZE */
+  --size-one: 5px;
+  --size-two: 8px;
+  --size-three: 13px;
+  --size-four: 21px;
+  --size-five: 34px;
+  --size-six: 55px;
+  --size-seven: 89px;
+  --size-eight: 144px;
+}
