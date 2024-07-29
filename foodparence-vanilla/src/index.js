@@ -1,7 +1,6 @@
-/* **********************************************************************************
- *                           Gestion des IMPORTATIONS                                *
- *************************************************************************************/
+// * Imports
 import additifsEuropeenDiviseeOrdonneeFiltree from "./additifsEUROPA.js";
+import classificationSVG from "./assets/icon/classification.svg.js";
 import {
   capitalizeWord,
   createHTMLListElementAndInjectInDOM,
@@ -12,18 +11,12 @@ import {
   toUppercaseWord,
 } from "./utils.js";
 
-/* **********************************************************************************
- *                           Récupérer les éléments HTML                             *
- *************************************************************************************/
-
-const el_Body = document.querySelector("body");
+// * Get HTML Elements from DOM
 const el_Form = document.querySelector("#form");
 const el_SearchInput = document.querySelector("#barcode");
-const el_InputSubmit = document.querySelector("#submit");
 const el_AllergenInput = document.querySelector("#allergen-checkbox");
 const el_AdditiveInput = document.querySelector("#additive-checkbox");
 const el_NoAnimalInput = document.querySelector("#no-animal-checkbox");
-const el_ResultProductSection = document.querySelector("#resultSection");
 const el_ResultTitle = document.querySelector(".result-section__title");
 const el_ResultIntro = document.querySelector(".result-section__intro");
 const el_ResultNameSection = document.querySelector("#resultNameSection");
@@ -33,42 +26,34 @@ const el_ResultAllergenSection = document.querySelector(
 const el_ResultAdditiveSection = document.querySelector(
   "#resultAdditiveSection"
 );
-const el_ResultProductInformationSection = document.querySelector(
+const el_ResultInformationSection = document.querySelector(
   ".result-information"
 );
-const el_ResultProductInformationH3 = document.querySelector(
+const el_ResultInformationTitle = document.querySelector(
   ".result-information__title"
 );
 const el_ResultProductClassification = document.querySelector(
   ".result-classification"
 );
 const el_ErrorContainer = document.querySelector(".error-container");
-const el_ErrormMessage = document.querySelector(".error-message");
+const el_ErrorMessage = document.querySelector(".error-message");
 
-/* **********************************************************************************
- *                                     CODE                                          *
- *************************************************************************************/
-
-/***********************************************
- *              RECHERCHE PRODUIT               *
- ************************************************/
-
-/***** Récupérer l'emplacement du titre "RESULTAT" de la section de résultat pour pouvoir faire un scroll lors de la recherche *****/
+// * Starting Code :
+// Get "Resutat" title position for scroll
 const verticalResultTitlePosition = el_ResultTitle.getBoundingClientRect().y;
-// console.log(verticalResultTitlePosition);
 
-/***** Récupérer le code-Barre à la soumission du formulaire *****/
 el_Form.addEventListener("submit", async function (e) {
   e.preventDefault();
+
+  // Get barcode
   const barcode = el_SearchInput.value;
   const REGEX_VALID_BARCODE = /^([0-9]{8}|[0-9]{13})$/g;
 
   const result = await fetchBarcodeDatas(barcode);
-  console.log("result", result);
 
   // If barcode isn't valid
   if (!REGEX_VALID_BARCODE.test(barcode)) {
-    el_ErrormMessage.textContent =
+    el_ErrorMessage.textContent =
       "Veuillez saisir un code barre comprenant 8 ou 13 chiffres";
     el_ErrorContainer.classList.add("display-error");
 
@@ -83,11 +68,9 @@ el_Form.addEventListener("submit", async function (e) {
     removeAllChildrensOfParentElement(el_ResultNameSection);
     removeAllChildrensOfParentElement(el_ResultAllergenSection);
     removeAllChildrensOfParentElement(el_ResultAdditiveSection);
-    removeAllChildrensOfParentElement(el_ResultProductInformationH3);
+    removeAllChildrensOfParentElement(el_ResultInformationTitle);
     removeAllChildrensOfParentElement(el_ResultProductClassification);
-    el_ResultProductInformationSection.classList.remove(
-      "result-information-actif"
-    );
+    el_ResultInformationSection.classList.remove("result-information-actif");
     document.querySelector(".wave")?.remove();
 
     return;
@@ -95,8 +78,7 @@ el_Form.addEventListener("submit", async function (e) {
 
   // If product not found
   if (result.status_verbose === "product not found") {
-    // Gestion d'erreur à afficher à l'utilisateur => Product not found
-    el_ErrormMessage.textContent =
+    el_ErrorMessage.textContent =
       "Désolé, nous n'avons pu trouver le produit recherché";
     el_ErrorContainer.classList.add("display-error");
 
@@ -112,30 +94,28 @@ el_Form.addEventListener("submit", async function (e) {
     return;
   }
 
-  // * Effacer l'élément anciennement chercher lors d'une nouvelle recherche
+  // Remove old search
   removeAllChildrensOfParentElement(el_ResultNameSection);
   removeAllChildrensOfParentElement(el_ResultAllergenSection);
   removeAllChildrensOfParentElement(el_ResultAdditiveSection);
-  removeAllChildrensOfParentElement(el_ResultProductInformationH3);
+  removeAllChildrensOfParentElement(el_ResultInformationTitle);
   removeAllChildrensOfParentElement(el_ResultProductClassification);
-  el_ResultProductInformationSection.classList.remove(
-    "result-information-actif"
-  );
+  el_ResultInformationSection.classList.remove("result-information-actif");
   document.querySelector(".wave")?.remove();
 
   if (result.status_verbose === "product found") {
-    // * Récupérer le nom de la marque et du produit
+    // Get product name and product brand
     let product = result.product;
     let findedNameProduct = null;
 
-    // On remplace les ',' par ', ' si il y en a
+    // Formate brand
     let brands = product.brands.replaceAll(",", ", ");
     let abbreviatedProductName = product.abbreviated_product_name;
     let productName = product.product_name;
     let productNameFr = product.product_name_fr;
     let genericName = product.generic_name;
 
-    // Regarder si les éléments du nom du produit récupérés sont présents en tant que propriété et si ils ne sont pas vide (on récupère dans l'ordre donné sinon)
+    // Formate product name
     if (productNameFr) {
       findedNameProduct = capitalizeWord(productNameFr);
     } else if (productName) {
@@ -148,7 +128,7 @@ el_Form.addEventListener("submit", async function (e) {
       findedNameProduct = "Nom du produit inconnu";
     }
 
-    // * Récupérer le nom de la marque: le formater ou texte par defaut sinon
+    // Formate brand with product name
     let formatedBrand = null;
     if (brands) {
       brands = toUppercaseWord(brands);
@@ -157,20 +137,16 @@ el_Form.addEventListener("submit", async function (e) {
       formatedBrand = `Marque inconnue - ${findedNameProduct}`;
     }
 
-    // * Récupérer les allergenes
+    // Get allergens
     let allergenArray = product.allergens_hierarchy;
     let traceArray = product.traces_hierarchy;
     let filteredAllAllergens = [];
     let allergensNotFound = false;
 
     if (el_AllergenInput.checked) {
-      console.log("les allergènes :", allergenArray, traceArray);
-
-      // Si les tableaux d'allergenes et de traces récupérés sont vides
       if (!allergenArray.length && !traceArray.length) {
         allergensNotFound = true;
       } else {
-        // Récupérer les éléments du tableau allergenArray
         let formatedAllergensArray = [];
         pushSearchedValueFromArrayToNewArray(
           allergenArray,
@@ -178,9 +154,7 @@ el_Form.addEventListener("submit", async function (e) {
           ":",
           1
         );
-        console.log("Tableaux des allergies :", formatedAllergensArray);
 
-        // Récupérer les éléments du tableau allergenArray
         let formatedTracesArray = [];
         pushSearchedValueFromArrayToNewArray(
           traceArray,
@@ -188,19 +162,17 @@ el_Form.addEventListener("submit", async function (e) {
           ":",
           1
         );
-        console.log("Tableaux des traces d'allergies :", formatedTracesArray);
 
-        // Concaténer les deux tableaux pour former le tableau total d'allergènes
+        // Concat arrays to have one array without duplicates
         let allAllergens = new Set(
           formatedAllergensArray.concat(formatedTracesArray).sort()
         );
-        console.log("allAllergens :", allAllergens);
 
         filteredAllAllergens = [...allAllergens];
       }
     }
 
-    /***** Récupérer les additifs *****/
+    // * Get additives
     let additifArray = product.additives_original_tags;
     let additivesNotFound = false;
     let formatedAdditivesArray = [];
@@ -208,9 +180,6 @@ el_Form.addEventListener("submit", async function (e) {
     const formatedAdditivesList = [];
 
     if (el_AdditiveInput.checked) {
-      console.log("liste des additifs :", additifArray);
-
-      // Si le tableau d'additifs est vide
       if (!additifArray.length) {
         // resultAdditif = "Aucuns additifs ne semblent être présents"
         additivesNotFound = true;
@@ -223,11 +192,8 @@ el_Form.addEventListener("submit", async function (e) {
           1
         );
         resultAdditif = formatedAdditivesArray.join(", ");
-        console.log("resultAdditif : ", resultAdditif);
-        console.log("formatedAdditivesArray : ", formatedAdditivesArray);
 
-        // * Récupérer le nom additif correspondant au code additif (dans le module additifsEUROPA.js)
-        //Rechercher les additifs du produits recherché dans la liste additifsEuro
+        // For each product additive, search if he's in the additive array datas
         for (
           let additifProduct = 0;
           additifProduct < formatedAdditivesArray.length;
@@ -250,18 +216,15 @@ el_Form.addEventListener("submit", async function (e) {
             }
           }
         }
-        console.log("formatedAdditivesList :", formatedAdditivesList);
       }
     }
 
-    // TODO:  Récupérer les ingrédients avec la présence animal
+    // TODO:  Get ingredients with animal presence
 
-    // * Injecter les resultats dans le DOM
-
-    /*** Supprimer l'élément <p> d'intro ***/
+    //  Remove intro sentence
     el_ResultIntro.remove();
 
-    /*** Injecter le NOM du produit ***/
+    // Inject result in DOM
     const titleResultNameSectionEl = injectElement(
       "h3",
       el_ResultNameSection,
@@ -272,7 +235,7 @@ el_Form.addEventListener("submit", async function (e) {
     const productNameEl = injectElement("p", el_ResultNameSection, result);
     productNameEl.classList.add("resultName-section__product");
 
-    /*** Injecter les ALLERGENES ***/
+    // Inject allergens
     if (el_AllergenInput.checked) {
       const titleResultAllergenSectionEl = injectElement(
         "h3",
@@ -282,7 +245,6 @@ el_Form.addEventListener("submit", async function (e) {
       titleResultAllergenSectionEl.classList.add("result-section__subtitle");
 
       if (allergensNotFound) {
-        console.log("aucun allergernes trouvés");
         const allergenTextEl = injectElement(
           "p",
           el_ResultAllergenSection,
@@ -307,8 +269,7 @@ el_Form.addEventListener("submit", async function (e) {
       }
     }
 
-    /*** Injecter les ADDITIFS ***/
-    // Les additifs
+    // Inject additives
     if (el_AdditiveInput.checked) {
       const titleResultAdditivSectionEl = injectElement(
         "h3",
@@ -342,160 +303,94 @@ el_Form.addEventListener("submit", async function (e) {
       }
     }
 
-    /*** Injecter les informations complémentaires (Nutriscore et Nova) ***/
-    /* Injecter le svg au sein de la balise h3'*/
-    el_ResultProductInformationH3.innerHTML = `<svg class="result-information-H3-svg" xmlns="http://www.w3.org/2000/svg" width="498" height="94" viewBox="0 0 498 94">
-          <g id="Groupe_27" data-name="Groupe 27" transform="translate(-634 -1177)">
-            <path id="Rectangle_11" data-name="Rectangle 11" d="M7.333,0h404A86.667,86.667,0,0,1,498,86.667v0A7.333,7.333,0,0,1,490.667,94h-404A86.667,86.667,0,0,1,0,7.333v0A7.333,7.333,0,0,1,7.333,0Z" transform="translate(634 1177)" fill="#a9de81"/>
-            <text id="Classification" transform="translate(687 1244)" fill="#f8f8f8" font-size="48" font-family="Comfortaa" font-weight="300" letter-spacing="-0.03em"><tspan x="0" y="0">CLASSIFICATION</tspan></text>
-          </g>
-        </svg>`;
-
-    /* Ajouter la classe pour les styles lorsque cette section apparaît */
-    el_ResultProductInformationSection.classList.add(
-      "result-information-actif"
+    // Inject additional informations (Nutriscore and Nova)
+    // Inject SVG Element in <h3>
+    el_ResultInformationTitle.insertAdjacentHTML(
+      "beforeend",
+      classificationSVG
     );
 
-    /* Ajouter les deux éléments graphique pour l'effet de vague */
-    const injectedImgWaveInformation = injectElement(
+    el_ResultInformationSection.classList.add("result-information-actif");
+
+    // Add wave img (no "alt" because image used as part of page design => see W3C)
+    const waveImgEl = injectElement("img", el_ResultInformationSection);
+    waveImgEl.setAttribute("src", "src/assets/icon/Wave.png");
+    waveImgEl.classList.add("wave");
+
+    // Inject nutriscore img
+    const nutriscore = product.nutriscore_grade.toUpperCase();
+    const validNutriscore = ["A", "B", "C", "D", "E"];
+
+    const nutriscoreImgEl = injectElement(
       "img",
-      el_ResultProductInformationSection
+      el_ResultProductClassification
     );
-    injectedImgWaveInformation.setAttribute("src", "src/assets/icon/Wave.png");
-    injectedImgWaveInformation.setAttribute(
-      "alt",
-      "Image utilisé pour le graphisme de la page"
-    );
-    injectedImgWaveInformation.classList.add("wave");
-
-    /* Injecter l'image du nutriscore */
-    let nutriScore = product.nutriscore_grade;
-    let injectedNutriscore = null;
-
-    injectedNutriscore = injectElement("img", el_ResultProductClassification);
-    injectedNutriscore.classList.add(
+    nutriscoreImgEl.classList.add(
       "result-nutriscore",
       "result-classification-childrens"
     );
 
-    switch (nutriScore) {
-      case "a":
-        injectedNutriscore.setAttribute(
-          "src",
-          "src/assets/images/NutriScore/NutriScore A.png"
-        );
-        injectedNutriscore.setAttribute("alt", "Image nutriscore classement A");
-        break;
-
-      case "b":
-        injectedNutriscore.setAttribute(
-          "src",
-          "src/assets/images/NutriScore/NutriScore B.png"
-        );
-        injectedNutriscore.setAttribute("alt", "Image nutriscore classement B");
-        break;
-
-      case "c":
-        injectedNutriscore.setAttribute(
-          "src",
-          "src/assets/images/NutriScore/NutriScore C.png"
-        );
-        injectedNutriscore.setAttribute("alt", "Image nutriscore classement C");
-        break;
-
-      case "d":
-        injectedNutriscore.setAttribute(
-          "src",
-          "src/assets/images/NutriScore/NutriScore D.png"
-        );
-        injectedNutriscore.setAttribute("alt", "Image nutriscore classement D");
-        break;
-
-      case "e":
-        injectedNutriscore.setAttribute(
-          "src",
-          "src/assets/images/NutriScore/NutriScore E.png"
-        );
-        injectedNutriscore.setAttribute("alt", "Image nutriscore classement E");
-        break;
-
-      default:
-        injectedNutriscore.setAttribute(
-          "src",
-          "src/assets/images/NutriScore/NutriScore - Undefined.png"
-        );
-        injectedNutriscore.setAttribute("alt", "Image nutriscore indéfini");
+    if (!validNutriscore.includes(nutriscore)) {
+      nutriscoreImgEl.setAttribute(
+        "src",
+        "src/assets/images/NutriScore/NutriScore - Undefined.png"
+      );
+      nutriscoreImgEl.setAttribute("alt", "Image nutriscore indéfini");
+    } else {
+      nutriscoreImgEl.setAttribute(
+        "src",
+        `src/assets/images/NutriScore/NutriScore ${nutriscore}.png`
+      );
+      nutriscoreImgEl.setAttribute(
+        "alt",
+        `Image nutriscore classement ${nutriscore}`
+      );
     }
 
-    /* Injecter l'image du NOVA score */
-    let novaScore = product.nova_group;
-    let injectedNovascore = null;
+    // Inject novascore img
+    const novascore = product.nova_group;
 
-    injectedNovascore = injectElement("img", el_ResultProductClassification);
-    injectedNovascore.classList.add(
+    const novascoreImgEl = injectElement("img", el_ResultProductClassification);
+    novascoreImgEl.classList.add(
       "result-novascore",
       "result-classification-childrens"
     );
 
-    switch (novaScore) {
-      case 1:
-        injectedNovascore.setAttribute(
-          "src",
-          "src/assets/images/NovaScore/NovaScore 1_1.png"
-        );
-        injectedNovascore.setAttribute("alt", "Image novascore classement 1");
-        break;
-
-      case 2:
-        injectedNovascore.setAttribute(
-          "src",
-          "src/assets/images/NovaScore/NovaScore 2_1.png"
-        );
-        injectedNovascore.setAttribute("alt", "Image novascore classement 2");
-        break;
-
-      case 3:
-        injectedNovascore.setAttribute(
-          "src",
-          "src/assets/images/NovaScore/NovaScore 3_1.png"
-        );
-        injectedNovascore.setAttribute("alt", "Image novascore classement 3");
-        break;
-
-      case 4:
-        injectedNovascore.setAttribute(
-          "src",
-          "src/assets/images/NovaScore/NovaScore 4_2.png"
-        );
-        injectedNovascore.setAttribute("alt", "Image novascore classement 4");
-        break;
-
-      default:
-        injectedNovascore.setAttribute(
-          "src",
-          "src/assets/images/NovaScore/NovaScore Inconnu.png"
-        );
-        injectedNovascore.setAttribute("alt", "Image novascore inconnu");
+    if (!validNutriscore.includes(nutriscore)) {
+      novascoreImgEl.setAttribute(
+        "src",
+        "src/assets/images/NovaScore/NovaScore Inconnu.png"
+      );
+      novascoreImgEl.setAttribute("alt", "Image novascore inconnu");
+    } else {
+      novascoreImgEl.setAttribute(
+        "src",
+        `src/assets/images/NovaScore/NovaScore ${novascore}_1.png`
+      );
+      novascoreImgEl.setAttribute(
+        "alt",
+        `Image novascore classement ${novascore}`
+      );
     }
 
-    // Sinon (repsonse.status != 1), le produit n'est pas présent dans la base de données
-
-    /** Faire défiler la page jusqu'à la section de résultat **/
-    // Récupérer l'emplacement Y de la page actuelle (dans le cas où la page à été scrollée)
+    // Scroll to the result page
+    // Get Y page position (if the page has been scrolled)
     const actuallyVerticalPagePosition = window.scrollY;
 
-    // Scroller vars le titre en soustrayant la hauteur de scroll actuelle en enlevant qque pixel pour écarter le titre du haut du window (question d'ergonomie)
+    // Scroll to the title
     window.scrollBy(
       0,
       verticalResultTitlePosition - actuallyVerticalPagePosition - 20
     );
-  } else {
-    // Cas erreur de retour non 200
-    let errorServerResponseText = `${xhr.statusText} : Une erreur est survenue, impossible d'afficher le produit`;
-    const errorServerResponse = injectElement(
-      "h3",
-      el_ResultNameSection,
-      errorServerResponseText
-    );
+
+    return;
   }
+
+  // Non 200 return error case
+  el_ErrorMessage = "Une erreur est survenue, impossible d'afficher le produit";
+  setTimeout(() => {
+    el_ErrorContainer.classList.remove("display-error");
+  }, 3000);
+
+  return;
 });
