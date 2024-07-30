@@ -4,12 +4,12 @@ import classificationSVG from "./assets/icon/classification.svg.js";
 import {
   capitalizeWord,
   createHTMLListElementAndInjectInDOM,
-  fetchBarcodeDatas,
   injectElement,
   pushSearchedValueFromArrayToNewArray,
   removeAllChildrensOfParentElement,
   toUppercaseWord,
 } from "./utils.js";
+import { fetchBarcodeDatas } from "./fetch.js";
 
 // * Get HTML Elements from DOM
 const el_Form = document.querySelector("#form");
