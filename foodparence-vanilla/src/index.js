@@ -387,7 +387,8 @@ el_Form.addEventListener("submit", async function (e) {
   }
 
   // Non 200 return error case
-  el_ErrorMessage = "Une erreur est survenue, impossible d'afficher le produit";
+  el_ErrorMessage.textContent =
+    "Une erreur est survenue, impossible d'afficher le produit";
   setTimeout(() => {
     el_ErrorContainer.classList.remove("display-error");
   }, 3000);
