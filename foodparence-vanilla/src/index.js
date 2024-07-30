@@ -1,5 +1,5 @@
 // * Imports
-import additifsEuropeenDiviseeOrdonneeFiltree from "./additifsEUROPA.js";
+import additifsEuropeenDiviseeOrdonneeFiltree from "./data/additifsEUROPA.js";
 import classificationSVG from "./assets/icon/classification.svg.js";
 import {
   capitalizeWord,
