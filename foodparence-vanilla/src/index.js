@@ -49,8 +49,6 @@ el_Form.addEventListener("submit", async function (e) {
   const barcode = el_SearchInput.value;
   const REGEX_VALID_BARCODE = /^([0-9]{8}|[0-9]{13})$/g;
 
-  const result = await fetchBarcodeDatas(barcode);
-
   // If barcode isn't valid
   if (!REGEX_VALID_BARCODE.test(barcode)) {
     el_ErrorMessage.textContent =
@@ -76,13 +74,14 @@ el_Form.addEventListener("submit", async function (e) {
     return;
   }
 
+  const result = await fetchBarcodeDatas(barcode);
+
   // If product not found
   if (result.status_verbose === "product not found") {
     el_ErrorMessage.textContent =
       "Désolé, nous n'avons pu trouver le produit recherché";
     el_ErrorContainer.classList.add("display-error");
 
-    el_SearchInput.value = "";
     el_AdditiveInput.checked = false;
     el_AllergenInput.checked = false;
     el_NoAnimalInput.checked = false;

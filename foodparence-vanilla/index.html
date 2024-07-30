@@ -157,15 +157,13 @@
 
         <form id="form">
           <div class="search-barcode">
-            <!-- <p class="search-codeBarre__consigne">
-              Veuillez entrer le code-barre du produit recherché:
-            </p> -->
-
             <label class="search-barcode__label" for="barcode">
               Code-barre
               <input
                 class="search-barcode__input"
-                type="text"
+                type="number"
+                minlength="8"
+                maxlength="13"
                 name="search"
                 id="barcode"
                 autocomplete="off"
